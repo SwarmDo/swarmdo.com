@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>swarmdo — agent swarms for Claude Code</title>
-<meta name="description" content="swarmdo — agent swarm orchestration for Claude Code. 60+ agent roles, hive-mind consensus, vector memory, and a Postgres vector extension.">
+<meta name="description" content="swarmdo — agent swarm orchestration for Claude Code, plus SwarmDo-A1: an open, self-hostable, execution-verified multimodal coding model. 60+ agent roles, hive-mind consensus, vector memory, and a Postgres vector extension.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%2296%22 fill=%22%230f1317%22/><g fill=%22%23e2a33c%22><circle cx=%22352%22 cy=%22176%22 r=%2234%22/><circle cx=%22284%22 cy=%22232%22 r=%2226%22/><circle cx=%22330%22 cy=%22286%22 r=%2224%22/><circle cx=%22216%22 cy=%22280%22 r=%2220%22/><circle cx=%22272%22 cy=%22336%22 r=%2219%22/><circle cx=%22156%22 cy=%22322%22 r=%2215%22/><circle cx=%22214%22 cy=%22382%22 r=%2214%22/><circle cx=%22106%22 cy=%22358%22 r=%2211%22/><circle cx=%22162%22 cy=%22420%22 r=%2210%22/></g></svg>">
 <link rel="canonical" href="https://swarmdo.com/">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -241,6 +241,7 @@
       <a href="#statusline">statusline</a>
       <a href="#features">features</a>
       <a href="#toolkit">toolkit</a>
+      <a href="#model">model</a>
       <a href="#engines">engines</a>
       <a href="#efficiency">efficiency</a>
       <a href="#install">install</a>
@@ -325,6 +326,27 @@
         <p class="config-foot">Live: <code id="seg-cmd">swarmdo statusline --preset full</code></p>
       </div>
     </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="model">
+  <div class="wrap">
+    <p class="sec-label">The model · new</p>
+    <h2>SwarmDo-A1 — the open coding model behind the swarm.</h2>
+    <p class="sec-lede">swarmdo isn't only orchestration. <b style="color:var(--bright)">SwarmDo-A1</b> is our open, self-hostable coding <em>model</em> — a strong open base rebuilt for agentic software engineering, where every gain is proven by <em>running the project's own tests</em>, plus a differentiated visual-coding capability. It ships in parallel with the plugin, and — like everything here — it's measured honestly, negatives included.</p>
+    <div class="feat-grid">
+      <div class="feat"><h3><span class="fk">▲</span>The base matters most <span class="num">+25pp</span></h3><p>The single biggest measured win was re-basing onto a stronger open model (Qwen3.6-27B). On a contamination-controlled held-out set that beat the prior base by <span class="num">≈25 points</span> — paired McNemar <span class="num">p&nbsp;=&nbsp;0.013</span>. Capability dominates cleverness.</p></div>
+      <div class="feat"><h3><span class="fk">✓</span>Verify by running the tests <span class="num">36 vs 24</span></h3><p>The system samples several candidate patches and keeps the ones that <em>pass</em>. Base + execution-verified selection solved <span class="num">50% more</span> issues than the base alone — <span class="num">p&nbsp;=&nbsp;0.0005</span>, regression-free. No LLM-as-judge.</p></div>
+      <div class="feat"><h3><span class="fk">🖼</span>Exec-grounded visual coding <span class="num">p=6e-05</span></h3><p>Show it a chart; it writes the code to reproduce it; we <em>render that code and compare to the image</em> — an objective reward you can't bluff. The image genuinely drives the output (<span class="num">p&nbsp;=&nbsp;6e-05</span>), and the model self-generates its own render-verified training data.</p></div>
+      <div class="feat"><h3><span class="fk">⎋</span>Open &amp; self-hostable</h3><p>Apache-2.0, fits a single 80GB GPU, no API lock-in. Multimodal (text&nbsp;+&nbsp;vision). Serves through vLLM as an OpenAI-compatible endpoint; on-device paths via MLX / GGUF / GPTQ-Int4.</p></div>
+      <div class="feat"><h3><span class="fk">◐</span>Honest about limits</h3><p>Single-model fine-tuning <em>alone</em> gave no significant gain (a "churn wall") — which is exactly why A1 is a <em>system</em>, not a magic checkpoint. We publish the null results too. No number is rounded up.</p></div>
+      <div class="feat"><h3><span class="fk">⌁</span>Release candidate</h3><p>The adapter is <a href="https://huggingface.co/SwarmDo/SwarmDo-A1">on Hugging Face</a> now (LoRA on Qwen3.6-27B); the full model card, reproduce guides, and results live in the <a href="https://github.com/SwarmDo/models">models repo</a>.</p></div>
+    </div>
+    <div class="cta-row" style="margin-top:32px">
+      <a class="cmd" href="https://huggingface.co/SwarmDo/SwarmDo-A1"><span class="ps">⤓</span> huggingface.co/SwarmDo/SwarmDo-A1</a>
+      <a class="gh" href="https://github.com/SwarmDo/models">model cards &amp; results →</a>
     </div>
   </div>
 </section>
