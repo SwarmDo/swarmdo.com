@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>swarmdo — agent swarms for Claude Code</title>
-<meta name="description" content="swarmdo — agent swarm orchestration for Claude Code, plus SwarmDo-A1: an open, self-hostable, execution-verified multimodal coding model. 60+ agent roles, hive-mind consensus, vector memory, and a Postgres vector extension.">
+<meta name="description" content="SwarmDo — three layers, built in the open: the agent-orchestration plugin for Claude Code, the open SwarmDo-A1 and A2 coding models, and SwarmDoGPU managed compute. 60+ agent roles, hive-mind consensus, vector memory, and a Postgres vector extension.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%2296%22 fill=%22%230f1317%22/><g fill=%22%23e2a33c%22><circle cx=%22352%22 cy=%22176%22 r=%2234%22/><circle cx=%22284%22 cy=%22232%22 r=%2226%22/><circle cx=%22330%22 cy=%22286%22 r=%2224%22/><circle cx=%22216%22 cy=%22280%22 r=%2220%22/><circle cx=%22272%22 cy=%22336%22 r=%2219%22/><circle cx=%22156%22 cy=%22322%22 r=%2215%22/><circle cx=%22214%22 cy=%22382%22 r=%2214%22/><circle cx=%22106%22 cy=%22358%22 r=%2211%22/><circle cx=%22162%22 cy=%22420%22 r=%2210%22/></g></svg>">
 <link rel="canonical" href="https://swarmdo.com/">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -75,7 +75,7 @@
   .brand b{color:var(--honey);font-weight:600}
   .logo-mark{vertical-align:-5px;margin-right:6px;border-radius:5px}
   .foot-i .logo-mark{width:18px;height:18px;vertical-align:-4px;margin-right:5px}
-  .nav-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:14px 16px;margin-left:auto;font-family:var(--mono);font-size:13px}
+  .nav-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:14px 13px;margin-left:auto;font-family:var(--mono);font-size:13px}
   .nav-links a{color:var(--fog);white-space:nowrap}
   .nav-links a:hover{color:var(--honey);text-decoration:none}
   .ver{font-family:var(--mono);font-size:12px;color:var(--mute);border:1px solid var(--line);padding:2px 8px;border-radius:99px;white-space:nowrap}
@@ -180,7 +180,7 @@
 
   /* install */
   .steps{display:grid;gap:14px;max-width:760px}
-  .step{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+  .step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start}
   .step-n{font-family:var(--mono);color:var(--honey);font-size:13px;padding-top:13px;width:20px}
   .code{position:relative;background:#0c1014;border:1px solid var(--line);border-radius:8px;padding:13px 16px;font-family:var(--mono);font-size:13.5px;color:var(--bright);overflow-x:auto;white-space:pre}
   .code .ps{color:var(--honey)} .code .cm{color:var(--mute)}
@@ -220,30 +220,67 @@
   footer{padding:44px 0 60px;font-size:14px;color:var(--mute)}
   .foot-i{display:flex;gap:28px;flex-wrap:wrap;align-items:baseline}
   .foot-i .brand{font-size:14px}
-  .foot-links{display:flex;gap:20px;margin-left:auto;font-family:var(--mono);font-size:12.5px}
+  .foot-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-left:auto;font-family:var(--mono);font-size:12.5px}
   .license{margin-top:18px;max-width:62em;font-size:13px;line-height:1.7}
 
   .toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,80px);background:var(--honey);color:#171004;font-family:var(--mono);font-size:13px;font-weight:600;padding:9px 18px;border-radius:8px;transition:transform .25s;z-index:50}
   .toast.show{transform:translate(-50%,0)}
   @media (prefers-reduced-motion: reduce){ .toast{transition:none} }
 
+  /* ── project switcher (nav) ── */
+  .nav-proj{display:flex;gap:2px;font-family:var(--mono);font-size:12.5px;background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:3px}
+  .nav-proj a{color:var(--fog);padding:4px 9px;border-radius:6px;white-space:nowrap}
+  .nav-proj a:hover{color:var(--honey);text-decoration:none;background:var(--panel)}
+  .nav-proj a.on{background:var(--panel-2);color:var(--honey)}
+
+  /* ── the three pillars ── */
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .proj{background:var(--panel);padding:28px 26px 26px;display:flex;flex-direction:column;transition:background .15s}
+  .proj:hover{background:var(--panel-2)}
+  .proj .pk{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 16px}
+  .proj .pl{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+  .proj .st{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--mute);white-space:nowrap}
+  .proj .st.go{border-color:rgba(131,185,138,.45);color:var(--a-green)}
+  .proj .st.wip{border-color:var(--honey-dim);color:var(--honey)}
+  .proj h3{font-family:var(--mono);font-size:20px;color:var(--bright);margin:0 0 6px;font-weight:600;letter-spacing:-.01em}
+  .proj .role{font-family:var(--mono);font-size:12.5px;color:var(--honey);margin:0 0 12px}
+  .proj p{font-size:15px;color:var(--fog);margin:0 0 18px}
+  .proj .go-l{margin-top:auto;font-family:var(--mono);font-size:13px;display:flex;gap:16px;flex-wrap:wrap}
+  .proj .go-l a{color:var(--fog)}
+  .proj .go-l a.main{color:var(--honey)}
+
+  /* at full width the wrap is capped at 1120px, so the bar fits on one line —
+     pin it there. Below this the links may still shrink/wrap (or hide at 920). */
+  @media (min-width:1180px){ .nav-links{flex-shrink:0} }
+
   @media (max-width:920px){
-    .hero-i{grid-template-columns:1fr;gap:40px;padding:56px 0}
+    /* minmax(0,1fr) — plain 1fr keeps min-width:auto, so the terminal's
+       long unbreakable mono lines forced ~164px of page overflow on phones */
+    .hero-i{grid-template-columns:minmax(0,1fr);gap:40px;padding:56px 0}
     .nav-links{display:none}
+    .proj-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .ver{display:none}
+    .nav-proj{font-size:12px}
+    .nav-proj a{padding:4px 9px}
   }
 </style>
 
 <nav>
   <div class="wrap nav-i">
     <span class="brand"><svg class="logo-mark" width="22" height="22" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#182029"/><g fill="#e2a33c"><circle cx="352" cy="176" r="34"/><circle cx="284" cy="232" r="26" opacity=".92"/><circle cx="330" cy="286" r="24" opacity=".88"/><circle cx="216" cy="280" r="20" opacity=".78"/><circle cx="272" cy="336" r="19" opacity=".74"/><circle cx="156" cy="322" r="15" opacity=".62"/><circle cx="214" cy="382" r="14" opacity=".58"/><circle cx="106" cy="358" r="11" opacity=".46"/><circle cx="162" cy="420" r="10" opacity=".42"/></g></svg> swarmdo</span>
-    <span class="ver">v1.63.4 · MIT</span>
+    <span class="ver">v1.63.4</span>
+    <nav class="nav-proj" aria-label="Projects">
+      <a class="on" href="/" aria-current="page">plugin</a>
+      <a href="/models.html">models</a>
+      <a href="/gpu.html">gpu</a>
+    </nav>
     <div class="nav-links">
       <a href="#statusline">statusline</a>
       <a href="#features">features</a>
       <a href="#toolkit">toolkit</a>
-      <a href="#model">model</a>
       <a href="#engines">engines</a>
-      <a href="#efficiency">efficiency</a>
       <a href="#install">install</a>
       <a href="#commands">commands</a>
       <a href="#faq">faq</a>
@@ -286,6 +323,52 @@
     </div>
   </div>
 </header>
+
+<section id="projects">
+  <div class="wrap">
+    <p class="sec-label">The projects</p>
+    <h2>One ecosystem, three layers.</h2>
+    <p class="sec-lede">SwarmDo is built in the open across three pieces: the orchestration plugin you run in Claude Code, the open coding models behind it, and the compute layer that serves them. Each has its own home.</p>
+    <div class="proj-grid">
+
+      <div class="proj">
+        <div class="pk"><span class="pl">Layer 1 · orchestration</span><span class="st go">v1.63.4</span></div>
+        <h3>swarmdo</h3>
+        <p class="role">the plugin &amp; MCP server</p>
+        <p>Turns Claude Code into a coordinated multi-agent system — 60+ agent roles, hive-mind consensus, persistent vector memory, and self-learning hooks. MIT, fully self-contained.</p>
+        <div class="go-l">
+          <a class="main" href="#install">install →</a>
+          <a href="#features">what it does</a>
+          <a href="https://github.com/SwarmDo/swarmdo">github</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="pk"><span class="pl">Layer 2 · models</span><span class="st go">A1 + A2 released</span></div>
+        <h3>SwarmDo Models</h3>
+        <p class="role">open coding agents</p>
+        <p>Open, self-hostable LLMs for agentic software engineering. A1 is the coding tier; A2 carries code <em>and</em> vision in one checkpoint. Every gain proven by running the project’s own tests.</p>
+        <div class="go-l">
+          <a class="main" href="/models.html">the models →</a>
+          <a href="/a1.html">a1 deep-dive</a>
+          <a href="https://huggingface.co/SwarmDo">🤗 weights</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="pk"><span class="pl">Layer 3 · compute</span><span class="st wip">in development</span></div>
+        <h3>SwarmDoGPU</h3>
+        <p class="role">managed GPU infrastructure</p>
+        <p>The hosted path: GPU workloads and infrastructure for the ecosystem above — so “self-hostable” doesn’t have to mean buying an 80GB card. Early access by request.</p>
+        <div class="go-l">
+          <a class="main" href="/gpu.html">what it is →</a>
+          <a href="/gpu.html#early">early access</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <section id="features">
   <div class="wrap">
@@ -334,9 +417,9 @@
 
 <section id="model">
   <div class="wrap">
-    <p class="sec-label">The model · new</p>
-    <h2>SwarmDo-A1 — the open coding model behind the swarm.</h2>
-    <p class="sec-lede">swarmdo isn't only orchestration. <b style="color:var(--bright)">SwarmDo-A1</b> is our open, self-hostable coding <em>model</em> — a strong open base rebuilt for agentic software engineering, where every gain is proven by <em>running the project's own tests</em>, plus a differentiated visual-coding capability. It ships in parallel with the plugin, and — like everything here — it's measured honestly, negatives included.</p>
+    <p class="sec-label">The models · A2 now out</p>
+    <h2>SwarmDo-A1 &amp; A2 — the open models behind the swarm.</h2>
+    <p class="sec-lede">swarmdo isn't only orchestration. <b style="color:var(--bright)">SwarmDo-A1</b> and <b style="color:var(--bright)">SwarmDo-A2</b> are our open, self-hostable coding <em>models</em> — a strong open base rebuilt for agentic software engineering, where every gain is proven by <em>running the project's own tests</em>, plus a differentiated visual-coding capability. They ship in parallel with the plugin, and — like everything here — they're measured honestly, negatives included.</p>
     <div class="feat-grid">
       <div class="feat"><h3><span class="fk">▲</span>The base matters most <span class="num">+25pp</span></h3><p>The single biggest measured win was re-basing onto a stronger open model (Qwen3.6-27B). On a contamination-controlled held-out set that beat the prior base by <span class="num">≈25 points</span> — paired McNemar <span class="num">p&nbsp;=&nbsp;0.013</span>. Capability dominates cleverness.</p></div>
       <div class="feat"><h3><span class="fk">✓</span>Verify by running the tests <span class="num">36 vs 24</span></h3><p>The system samples several candidate patches and keeps the ones that <em>pass</em>. Base + execution-verified selection solved <span class="num">50% more</span> issues than the base alone — <span class="num">p&nbsp;=&nbsp;0.0005</span>, regression-free. No LLM-as-judge.</p></div>
@@ -344,10 +427,11 @@
       <div class="feat"><h3><span class="fk">⎋</span>Open &amp; self-hostable</h3><p>Apache-2.0, fits a single 80GB GPU, no API lock-in. Multimodal (text&nbsp;+&nbsp;vision). Serves through vLLM as an OpenAI-compatible endpoint; on-device paths via MLX / GGUF / GPTQ-Int4.</p></div>
       <div class="feat"><h3><span class="fk">◐</span>Honest about limits</h3><p>Single-model fine-tuning <em>alone</em> gave no significant gain (a "churn wall") — which is exactly why A1 is a <em>system</em>, not a magic checkpoint. We publish the null results too. No number is rounded up.</p></div>
       <div class="feat"><h3><span class="fk">⌁</span>Release candidate</h3><p>The adapter is <a href="https://huggingface.co/SwarmDo/SwarmDo-A1">on Hugging Face</a> now (LoRA on Qwen3.6-27B); the full model card, reproduce guides, and results live in the <a href="https://github.com/SwarmDo/models">models repo</a>.</p></div>
+      <div class="feat"><h3><span class="fk">⧉</span>A2 — both skills, one checkpoint <span class="num">p=0.63</span></h3><p>SwarmDo-A2 folds A1's coding delta and a separately trained visual-coding delta into a <em>single</em> rank-48 adapter on the same base. Combining them degraded neither half — the visual moat held (<span class="num">Δ&nbsp;−0.006</span>, not worse) and coding held (<span class="num">18 vs 19</span> solved, <span class="num">p&nbsp;=&nbsp;1.0</span>). <a href="/models.html">See both models →</a></p></div>
     </div>
     <div class="cta-row" style="margin-top:32px">
+      <a class="cmd" href="/models.html"><span class="ps">→</span> both models, side by side</a>
       <a class="cmd" href="/a1.html"><span class="ps">→</span> the full SwarmDo-A1 page</a>
-      <a class="cmd" href="https://huggingface.co/SwarmDo/SwarmDo-A1"><span class="ps">⤓</span> weights on 🤗</a>
       <a class="gh" href="https://github.com/SwarmDo/models">model cards &amp; results →</a>
     </div>
   </div>
@@ -795,6 +879,9 @@
     <div class="foot-i">
       <span class="brand"><svg class="logo-mark" width="18" height="18" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#182029"/><g fill="#e2a33c"><circle cx="352" cy="176" r="34"/><circle cx="284" cy="232" r="26" opacity=".92"/><circle cx="330" cy="286" r="24" opacity=".88"/><circle cx="216" cy="280" r="20" opacity=".78"/><circle cx="272" cy="336" r="19" opacity=".74"/><circle cx="156" cy="322" r="15" opacity=".62"/><circle cx="214" cy="382" r="14" opacity=".58"/><circle cx="106" cy="358" r="11" opacity=".46"/><circle cx="162" cy="420" r="10" opacity=".42"/></g></svg> swarmdo</span>
       <div class="foot-links">
+        <a href="/models.html">models</a>
+        <a href="/a1.html">a1</a>
+        <a href="/gpu.html">gpu</a>
         <a href="https://github.com/SwarmDo/swarmdo">github</a>
         <a href="https://github.com/SwarmDo/swarmdo/releases">releases</a>
         <a href="https://github.com/SwarmDo/swarmdo/blob/main/LICENSE">license</a>
@@ -993,11 +1080,11 @@
   <div class="a1pop-card">
     <button class="a1pop-x" type="button" aria-label="Dismiss">×</button>
     <p class="a1pop-eyebrow">🇦🇺 New · open weights · built in Australia</p>
-    <h3 id="a1pop-h">SwarmDo-<span class="h-accent">A1</span> is live.</h3>
-    <p class="a1pop-body">An open, self-hostable, <b>multimodal</b> coding model — where every gain is proven by <em>running the tests</em>. Re-base +25pp (p=0.013), exec-verified selection +50% (p=0.0005), exec-grounded visual coding (p=6e-05). Measured honestly, negatives included.</p>
+    <h3 id="a1pop-h">SwarmDo-<span class="h-accent">A2</span> is out.</h3>
+    <p class="a1pop-body">Open, self-hostable coding models — where every gain is proven by <em>running the tests</em>. <b>A1</b> is the coding tier (re-base +25pp, exec-verified selection +50%, p=0.0005). <b>A2</b> now carries code <em>and</em> vision in one checkpoint, with measured proof that combining them degraded neither. Negatives included.</p>
     <div class="a1pop-cta">
-      <a class="a1pop-b1" href="/a1.html">Meet the model →</a>
-      <a class="a1pop-b2" href="https://huggingface.co/SwarmDo/SwarmDo-A1">Weights on 🤗</a>
+      <a class="a1pop-b1" href="/models.html">Meet the models →</a>
+      <a class="a1pop-b2" href="https://huggingface.co/SwarmDo">Weights on 🤗</a>
     </div>
   </div>
 </div>

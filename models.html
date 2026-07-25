@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SwarmDo Models — open, execution-verified coding agents</title>
+<meta name="description" content="SwarmDo-A1 and SwarmDo-A2: open, self-hostable coding models for agentic software engineering. Every gain proven by running the tests. Open weights on Hugging Face.">
+<link rel="canonical" href="https://swarmdo.com/models.html">
+<meta property="og:title" content="SwarmDo Models — open, execution-verified coding agents">
+<meta property="og:description" content="Two released open models: A1 (coding) and A2 (code + vision in one checkpoint). Measured honestly, negatives published.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://swarmdo.com/models.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%2296%22 fill=%22%230f1317%22/><g fill=%22%23e2a33c%22><circle cx=%22352%22 cy=%22176%22 r=%2234%22/><circle cx=%22284%22 cy=%22232%22 r=%2226%22/><circle cx=%22330%22 cy=%22286%22 r=%2224%22/><circle cx=%22216%22 cy=%22280%22 r=%2220%22/><circle cx=%22272%22 cy=%22336%22 r=%2219%22/><circle cx=%22156%22 cy=%22322%22 r=%2215%22/><circle cx=%22214%22 cy=%22382%22 r=%2214%22/><circle cx=%22106%22 cy=%22358%22 r=%2211%22/><circle cx=%22162%22 cy=%22420%22 r=%2210%22/></g></svg>">
+<style>
+  :root{
+    --ink:#0f1317;--ink-2:#131920;--panel:#161d24;--panel-2:#1b242d;--line:#232e39;
+    --honey:#e2a33c;--honey-deep:#b97f22;--honey-dim:#8a6b35;--bright:#edf1f4;--fog:#a9b4be;--mute:#66737f;
+    --a-green:#83b98a;--a-cyan:#6fb3c4;--a-purple:#a38fc9;
+    --mono:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:"Avenir Next","Seravek","Gill Sans Nova",Avenir,system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--ink);color:var(--fog);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--honey);text-decoration:none}
+  a:hover{text-decoration:underline;text-underline-offset:3px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  h1,h2,h3{font-family:var(--mono);font-weight:600;color:var(--bright);letter-spacing:-.02em;text-wrap:balance}
+  .accent{color:var(--honey)}
+  code{font-family:var(--mono);font-size:.9em;color:var(--bright)}
+  nav{position:sticky;top:0;z-index:20;background:rgba(15,19,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-i{display:flex;align-items:center;gap:24px;min-height:56px;padding:6px 0}
+  .brand{font-family:var(--mono);font-size:15px;color:var(--bright);font-weight:600}
+  .brand b{color:var(--honey)}
+  .nav-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 18px;margin-left:auto;font-family:var(--mono);font-size:13px}
+  .nav-links a{color:var(--fog)} .nav-links a:hover{color:var(--honey);text-decoration:none}
+  .nav-links a.on{color:var(--honey)}
+  @media(max-width:620px){.nav-links a.opt{display:none}}
+
+  header.hero{border-bottom:1px solid var(--line);padding:76px 0 56px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--honey);margin:0 0 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.04;margin:0 0 20px}
+  .lede{font-size:clamp(17px,2.3vw,20px);color:var(--fog);max-width:48ch;margin:0 0 28px}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{font-family:var(--mono);font-size:14px;padding:11px 17px;border-radius:8px;display:inline-flex;gap:8px;align-items:center;transition:.15s}
+  .btn.p{background:var(--honey);color:#1a1206;font-weight:600}.btn.p:hover{text-decoration:none;filter:brightness(1.06)}
+  .btn.s{background:var(--panel);color:var(--bright);border:1px solid var(--line)}.btn.s:hover{text-decoration:none;border-color:var(--honey-dim)}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sec-label{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:0 0 12px}
+  h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 14px}
+  .sub{color:var(--fog);max-width:64ch;margin:0 0 30px}
+
+  /* model cards */
+  .models{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:860px){.models{grid-template-columns:1fr}}
+  .m{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px 24px;display:flex;flex-direction:column}
+  .m-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 12px;margin-bottom:6px}
+  .m h3{font-size:22px;margin:0}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--mute);white-space:nowrap}
+  .tag.go{border-color:rgba(131,185,138,.5);color:var(--a-green)}
+  .m .role{font-family:var(--mono);font-size:12.5px;color:var(--honey);margin:0 0 14px}
+  .m p.d{font-size:15px;margin:0 0 16px;color:var(--fog)}
+  .spec{list-style:none;margin:0 0 18px;padding:0;border-top:1px solid var(--line)}
+  .spec li{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12.5px}
+  .spec .k{color:var(--mute)} .spec .v{color:var(--bright);text-align:right}
+  .m .links{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:13px}
+
+  .results{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  @media(max-width:760px){.results{grid-template-columns:1fr}}
+  .rcard{background:var(--panel);padding:24px 22px}
+  .rcard .big{font-family:var(--mono);font-size:32px;font-weight:600;color:var(--honey);line-height:1;letter-spacing:-.02em}
+  .rcard .k{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin:12px 0 8px}
+  .rcard .d{font-size:14.5px;color:var(--fog)}
+  .rcard .p{font-family:var(--mono);font-size:12px;color:var(--a-green);margin-top:10px}
+
+  pre{font-family:var(--mono);font-size:12.5px;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;line-height:1.7;color:var(--bright)}
+  pre .c{color:var(--mute)} pre .g{color:var(--honey)}
+  .callout{border:1px solid var(--line);border-left:3px solid var(--honey);border-radius:8px;background:rgba(226,163,60,.07);padding:15px 18px;margin:16px 0 0;font-size:15px}
+  .honest li{margin:0 0 12px} .honest b{font-family:var(--mono);color:var(--bright)}
+  footer{padding:40px 0 60px;color:var(--mute);font-family:var(--mono);font-size:13px}
+  .foot-i{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .foot-i a{color:var(--mute)} .foot-i a:hover{color:var(--honey)}
+  :focus-visible{outline:2px solid var(--honey);outline-offset:3px;border-radius:3px}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-i">
+  <a class="brand" href="/"><b>swarm</b>do<span style="color:var(--mute)"> / models</span></a>
+  <div class="nav-links">
+    <a href="/#projects">projects</a>
+    <a class="opt" href="/">plugin</a>
+    <a class="on" href="/models.html">models</a>
+    <a class="opt" href="/gpu.html">gpu</a>
+    <a href="https://github.com/SwarmDo/models">github</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <p class="eyebrow"><span>🇦🇺 Built in Australia</span> · <span>open weights</span> · <span>Apache-2.0 base</span></p>
+  <h1>Open coding models,<br><span class="accent">measured honestly.</span></h1>
+  <p class="lede">SwarmDo builds open LLMs for <b style="color:var(--bright)">agentic software engineering</b> — models that take a real bug report and a whole codebase and produce a fix that passes the project’s own tests. Two are released.</p>
+  <div class="cta-row">
+    <a class="btn p" href="#lineup">The lineup</a>
+    <a class="btn s" href="#method">How we verify</a>
+    <a class="btn s" href="https://github.com/SwarmDo/models">Cards &amp; results</a>
+  </div>
+</div></header>
+
+<section id="lineup"><div class="wrap">
+  <p class="sec-label">Released models</p>
+  <h2>Two checkpoints, one 27B base.</h2>
+  <p class="sub">Both are LoRA adapters on the Apache-2.0 <code>Qwen/Qwen3.6-27B</code> base — open, self-hostable, and sized for a single 80GB GPU. A1 is the coding tier; A2 folds a second, independently trained visual-coding skill into the same model.</p>
+  <div class="models">
+
+    <div class="m">
+      <div class="m-top"><h3>SwarmDo-<span class="accent">A1</span></h3><span class="tag go">release candidate</span></div>
+      <p class="role">the coding tier</p>
+      <p class="d">A strong open base rebuilt for repository-level bug fixing, where candidate patches are selected by <em>running the project’s own tests</em> — never by an LLM judge. Text + vision.</p>
+      <ul class="spec">
+        <li><span class="k">base</span><span class="v">Qwen3.6-27B</span></li>
+        <li><span class="k">size</span><span class="v">27B</span></li>
+        <li><span class="k">modality</span><span class="v">text + vision</span></li>
+        <li><span class="k">local run</span><span class="v">GGUF · Ollama / LM Studio</span></li>
+      </ul>
+      <div class="links">
+        <a href="/a1.html">full page →</a>
+        <a href="https://huggingface.co/SwarmDo/SwarmDo-A1">🤗 adapter</a>
+        <a href="https://huggingface.co/SwarmDo/SwarmDo-A1-GGUF">GGUF</a>
+      </div>
+    </div>
+
+    <div class="m">
+      <div class="m-top"><h3>SwarmDo-<span class="accent">A2</span></h3><span class="tag go">churn-gate cleared</span></div>
+      <p class="role">code <b>and</b> vision, one checkpoint</p>
+      <p class="d">Takes A1’s coding delta and fuses it — on the same 27B base — with a separately trained visual-coding delta, into a <em>single</em> rank-48 adapter. Not two adapters you swap between.</p>
+      <ul class="spec">
+        <li><span class="k">base</span><span class="v">Qwen3.6-27B</span></li>
+        <li><span class="k">adapter</span><span class="v">rank-48 LoRA</span></li>
+        <li><span class="k">modality</span><span class="v">text + vision (both load-bearing)</span></li>
+        <li><span class="k">serving</span><span class="v">merged, via vLLM</span></li>
+      </ul>
+      <div class="links">
+        <a href="https://github.com/SwarmDo/models/tree/main/a2">model card →</a>
+        <a href="https://huggingface.co/SwarmDo/SwarmDo-A2">🤗 adapter</a>
+        <a href="https://huggingface.co/SwarmDo/SwarmDo-A2-merged">merged</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="callout">
+    <b style="font-family:var(--mono);color:var(--bright)">Which one?</b> Want a local, code-only model on your own machine — <b>A1</b>, via GGUF. Want code <em>and</em> visual coding from one served endpoint — <b>A2</b>, merged under vLLM. A2 has no GGUF on purpose: quantising to a text GGUF drops the vision tower and makes the visual half inert.
+  </div>
+</div></section>
+
+<section id="method"><div class="wrap">
+  <p class="sec-label">How the gains are earned</p>
+  <h2>Verified by running things, not by vibes.</h2>
+  <p class="sub">Every headline number on this site comes from a paired, held-out comparison with a significance test attached. Where a result was null, we publish the null.</p>
+  <div class="results">
+    <div class="rcard">
+      <div class="big">+50%</div>
+      <p class="k">A1 · execution-verified selection</p>
+      <p class="d">Base plus test-passing patch selection solved half again as many issues as the base alone — 36 vs 24, regression-free.</p>
+      <p class="p">McNemar p = 0.0005</p>
+    </div>
+    <div class="rcard">
+      <div class="big">+25pp</div>
+      <p class="k">A1 · the base matters most</p>
+      <p class="d">The single biggest measured win was re-basing onto a stronger open model. Capability dominates cleverness.</p>
+      <p class="p">McNemar p = 0.013</p>
+    </div>
+    <div class="rcard">
+      <div class="big">p = 0.63</div>
+      <p class="k">A2 · the churn gate</p>
+      <p class="d">Combining two skills degraded neither. Visual moat vs the pure visual model: Δ −0.006, 95% CI [−0.016, +0.004] — not worse. Coding held too: 18 vs 19 solved, p = 1.0.</p>
+      <p class="p">neither half eroded</p>
+    </div>
+  </div>
+  <div class="callout">
+    <b style="font-family:var(--mono);color:var(--bright)">Render-verified visual coding.</b> Show the model a chart; it writes code to reproduce it; we <em>render that code and compare it to the target image</em>. It’s an objective reward you can’t bluff — and the model self-generates its own render-verified training data from it, teacher-free.
+  </div>
+</div></section>
+
+<section id="run"><div class="wrap">
+  <p class="sec-label">Run it yourself</p>
+  <h2>Open weights, one GPU, no API lock-in.</h2>
+  <p class="sub">No account, no key, no waitlist. If you’d rather not own the hardware, <a href="/gpu.html">SwarmDoGPU</a> is the hosted path — in development.</p>
+  <pre><span class="c"># A1 — code-only, local, no account needed</span>
+ollama run <span class="g">hf.co/SwarmDo/SwarmDo-A1-GGUF:Q4_K_M</span>
+<span class="c"># Q4_K_M ≈ 16.5 GB · Q8_0 ≈ 28.6 GB · LM Studio auto-indexes it</span>
+
+<span class="c"># A2 — code + vision, served merged (vision tower intact)</span>
+vllm serve <span class="g">SwarmDo/SwarmDo-A2-merged</span> --served-model-name swarmdo-a2 \
+  --enable-auto-tool-choice --tool-call-parser qwen3_xml \
+  --reasoning-parser qwen3 --enforce-eager --trust-remote-code</pre>
+  <div class="callout">
+    <b style="font-family:var(--mono);color:var(--bright)">Serving note.</b> Use <code>--tool-call-parser qwen3_xml</code> <em>with</em> <code>--enable-auto-tool-choice</code> — the <code>hermes</code> parser silently drops tool calls, and without auto-tool-choice they 400. Serve once per process; eager mode avoids hybrid-attention graph-capture issues.
+  </div>
+</div></section>
+
+<section id="honest"><div class="wrap">
+  <p class="sec-label">What we don’t claim</p>
+  <h2>The negatives, published.</h2>
+  <ul class="honest" style="max-width:70ch;padding-left:20px">
+    <li><b>Fine-tuning alone did nothing.</b> Single-model fine-tuning on its own produced no significant gain — a “churn wall”. That is precisely why A1 is a <em>system</em> with a verification loop, not a magic checkpoint.</li>
+    <li><b>A2’s coding gate is small.</b> It rules out gross regression; it is underpowered for subtle ones. We say so rather than rounding it into a win.</li>
+    <li><b>No leaderboard chasing.</b> Numbers here are paired and held-out with contamination controls. We don’t quote a benchmark we didn’t run.</li>
+  </ul>
+  <div class="cta-row" style="margin-top:26px">
+    <a class="btn p" href="https://github.com/SwarmDo/models">Full results &amp; reproduce guides</a>
+    <a class="btn s" href="/a1.html">The A1 deep-dive</a>
+    <a class="btn s" href="/">Back to the plugin</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="foot-i">
+    <span><a href="/"><b style="color:var(--honey);font-weight:600">swarm</b>do</a> / models</span>
+    <span>
+      <a href="/">plugin</a> ·
+      <a href="/a1.html">a1</a> ·
+      <a href="/gpu.html">gpu</a> ·
+      <a href="/privacy.html">privacy</a> ·
+      <a href="https://github.com/SwarmDo/models">github</a>
+    </span>
+  </div>
+</div></footer>
+</body>
+</html>

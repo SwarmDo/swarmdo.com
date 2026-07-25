@@ -1,0 +1,23 @@
+# This repo IS the public web root: GitHub Pages serves committed files
+# verbatim, dotfiles included (verified — /.nojekyll and /CNAME both 200).
+# So anything committed here is readable at https://swarmdo.com/<path>.
+
+# Local agent tooling — would otherwise be published at swarmdo.com/.claude/*,
+# swarmdo.com/CLAUDE.md, etc. Keep it local; `swarmdo init` recreates it.
+.claude/
+.mcp.json
+CLAUDE.md
+AGENTS.md
+.agents/
+
+# Swarmdo runtime state (memory DBs, logs, sessions)
+.swarm/
+.swarmdo/
+.swarmdo-swarm/
+.hive-mind/
+*.db
+*.db-journal
+*.db-wal
+
+# OS cruft
+.DS_Store

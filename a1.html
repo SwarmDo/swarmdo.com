@@ -10,6 +10,7 @@
 <meta property="og:description" content="Open, self-hostable, multimodal. Measured honestly — negatives included. Built in Australia.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://swarmdo.com/a1.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%2296%22 fill=%22%230f1317%22/><g fill=%22%23e2a33c%22><circle cx=%22352%22 cy=%22176%22 r=%2234%22/><circle cx=%22284%22 cy=%22232%22 r=%2226%22/><circle cx=%22330%22 cy=%22286%22 r=%2224%22/><circle cx=%22216%22 cy=%22280%22 r=%2220%22/><circle cx=%22272%22 cy=%22336%22 r=%2219%22/><circle cx=%22156%22 cy=%22322%22 r=%2215%22/><circle cx=%22214%22 cy=%22382%22 r=%2214%22/><circle cx=%22106%22 cy=%22358%22 r=%2211%22/><circle cx=%22162%22 cy=%22420%22 r=%2210%22/></g></svg>">
 <style>
   :root{
     --ink:#0f1317;--ink-2:#131920;--panel:#161d24;--panel-2:#1b242d;--line:#232e39;
@@ -28,10 +29,10 @@
   .accent{color:var(--honey)}
   code{font-family:var(--mono);font-size:.9em;color:var(--bright)}
   nav{position:sticky;top:0;z-index:20;background:rgba(15,19,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-i{display:flex;align-items:center;gap:24px;height:56px}
+  .nav-i{display:flex;align-items:center;gap:24px;min-height:56px;padding:6px 0}
   .brand{font-family:var(--mono);font-size:15px;color:var(--bright);font-weight:600}
   .brand b{color:var(--honey)}
-  .nav-links{display:flex;gap:20px;margin-left:auto;font-family:var(--mono);font-size:13px}
+  .nav-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 18px;margin-left:auto;font-family:var(--mono);font-size:13px}
   .nav-links a{color:var(--fog)} .nav-links a:hover{color:var(--honey);text-decoration:none}
   @media(max-width:620px){.nav-links a.opt{display:none}}
 
@@ -78,8 +79,9 @@
 <nav><div class="wrap nav-i">
   <a class="brand" href="/"><b>swarm</b>do<span style="color:var(--mute)"> / a1</span></a>
   <div class="nav-links">
-    <a href="#results">results</a>
-    <a class="opt" href="#visual">visual moat</a>
+    <a href="/#projects">projects</a>
+    <a href="/models.html">all models</a>
+    <a class="opt" href="#results">results</a>
     <a class="opt" href="#run">run it</a>
     <a href="https://huggingface.co/SwarmDo/SwarmDo-A1">🤗 weights</a>
     <a href="https://github.com/SwarmDo/models">github</a>
@@ -160,7 +162,7 @@ vllm serve Qwen/Qwen3.6-27B <span class="g">\</span>
 
 <footer><div class="wrap foot-i">
   <span>SwarmDo-A1 · RC · Apache-2.0 · built in Australia 🇦🇺</span>
-  <span><a href="/">swarmdo.com</a> · <a href="https://huggingface.co/SwarmDo/SwarmDo-A1">Hugging Face</a> · <a href="https://github.com/SwarmDo/models">GitHub</a> · <a href="https://github.com/SwarmDo/swarmdo">the plugin</a></span>
+  <span><a href="/">swarmdo.com</a> · <a href="/models.html">all models</a> · <a href="/gpu.html">gpu</a> · <a href="https://huggingface.co/SwarmDo/SwarmDo-A1">Hugging Face</a> · <a href="https://github.com/SwarmDo/models">GitHub</a> · <a href="/">the plugin</a></span>
 </div></footer>
 </body>
 </html>
