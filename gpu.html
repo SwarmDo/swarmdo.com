@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SwarmDoGPU — managed GPU compute for the swarm</title>
-<meta name="description" content="SwarmDoGPU: GPU workloads and infrastructure for the SwarmDo agent-orchestration ecosystem. In development — early access by request.">
+<title>SwarmDoGPU — managed GPU compute, for any workload</title>
+<meta name="description" content="SwarmDoGPU: managed GPU compute for any workload — training, fine-tuning, inference, batch. Bring your own code. In development — early access by request.">
 <link rel="canonical" href="https://swarmdo.com/gpu.html">
-<meta property="og:title" content="SwarmDoGPU — managed GPU compute for the swarm">
-<meta property="og:description" content="The compute layer of the SwarmDo ecosystem: somewhere to serve SwarmDo-A1 and A2 without owning an 80GB card. In development.">
+<meta property="og:title" content="SwarmDoGPU — managed GPU compute, for any workload">
+<meta property="og:description" content="Managed GPU compute for whatever you need to run. Not tied to SwarmDo — our own models are just one tenant. In development.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://swarmdo.com/gpu.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%2296%22 fill=%22%230f1317%22/><g fill=%22%23e2a33c%22><circle cx=%22352%22 cy=%22176%22 r=%2234%22/><circle cx=%22284%22 cy=%22232%22 r=%2226%22/><circle cx=%22330%22 cy=%22286%22 r=%2224%22/><circle cx=%22216%22 cy=%22280%22 r=%2220%22/><circle cx=%22272%22 cy=%22336%22 r=%2219%22/><circle cx=%22156%22 cy=%22322%22 r=%2215%22/><circle cx=%22214%22 cy=%22382%22 r=%2214%22/><circle cx=%22106%22 cy=%22358%22 r=%2211%22/><circle cx=%22162%22 cy=%22420%22 r=%2210%22/></g></svg>">
@@ -56,7 +56,7 @@
         padding:4px 10px;border-radius:999px;border:1px solid var(--honey-dim);color:var(--honey);background:rgba(226,163,60,.09)}
   .chip .d{width:6px;height:6px;border-radius:50%;background:var(--honey);flex:none}
 
-  /* the stack: three layers */
+  /* positioning cards */
   .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
   @media(max-width:800px){.stack{grid-template-columns:1fr}}
   .layer{background:var(--panel);padding:24px 22px;position:relative}
@@ -97,65 +97,65 @@
 
 <header class="hero"><div class="wrap">
   <p class="eyebrow"><span class="chip"><span class="d"></span> In development</span> <span>· 🇦🇺 Built in Australia</span></p>
-  <h1>SwarmDo<span class="accent">GPU</span><br>compute for the swarm.</h1>
-  <p class="lede">The third piece of the SwarmDo stack: <b style="color:var(--bright)">managed GPU workloads and infrastructure</b> — somewhere to actually run the models and the swarms, without owning the hardware.</p>
+  <h1>SwarmDo<span class="accent">GPU</span><br>bring your own workload.</h1>
+  <p class="lede"><b style="color:var(--bright)">Managed GPU compute and infrastructure</b> — for whatever you need to run. Train it, fine-tune it, serve it, batch it. It doesn’t have to be ours, and it doesn’t have to be an LLM.</p>
   <div class="cta-row">
     <a class="btn p" href="#early">Request early access</a>
-    <a class="btn s" href="#fit">Where it fits</a>
+    <a class="btn s" href="#fit">What it is</a>
     <a class="btn s" href="#status">Honest status</a>
   </div>
 </div></header>
 
 <section id="fit"><div class="wrap">
-  <p class="sec-label">Where it fits</p>
-  <h2>Three layers. This one is the floor they stand on.</h2>
-  <p class="sub">SwarmDo has always been two halves — the orchestration plugin and the open models. Both of them ultimately need the same thing: a GPU to run on. SwarmDoGPU is that layer, offered as a hosted service.</p>
+  <p class="sec-label">What it is</p>
+  <h2>A general-purpose GPU service. We’re just tenant zero.</h2>
+  <p class="sub">SwarmDoGPU is not a SwarmDo accessory. It’s managed GPU compute for anyone’s workload — yours included, whatever it happens to be. We build it, and we also happen to be a demanding customer of it, which is the useful part.</p>
   <div class="stack">
-    <div class="layer">
-      <p class="lk">Layer 1 · orchestration</p>
-      <h3>swarmdo</h3>
-      <p>The plugin and MCP server. Coordinates agents, memory, and consensus inside Claude Code. Runs on your laptop.</p>
-      <span class="badge">shipped</span>
-    </div>
-    <div class="layer">
-      <p class="lk">Layer 2 · models</p>
-      <h3>SwarmDo-A1 / A2</h3>
-      <p>Open, self-hostable coding models. Apache-2.0 base, fits a single 80GB GPU — if you have one.</p>
-      <span class="badge">released</span>
-    </div>
     <div class="layer here">
-      <p class="lk">Layer 3 · compute</p>
-      <h3>SwarmDoGPU</h3>
-      <p>Managed GPU workloads and infrastructure for the ecosystem above — so “self-hostable” doesn’t have to mean “self-hosted”.</p>
-      <span class="badge">in development</span>
+      <p class="lk">Bring your own</p>
+      <h3>Any workload</h3>
+      <p>Your code, your framework, your model — or no model at all. Training, fine-tuning, inference, batch and offline jobs. Nothing about it is SwarmDo-specific.</p>
+    </div>
+    <div class="layer">
+      <p class="lk">Or ours</p>
+      <h3>SwarmDo-A1 / A2</h3>
+      <p>Our own open models are one workload among many — a first-party tenant, not the boundary of what the service runs.</p>
+    </div>
+    <div class="layer">
+      <p class="lk">Why that matters</p>
+      <h3>Dogfooded</h3>
+      <p>Running our own training and serving on it means the awkward parts get found by us first, rather than by you.</p>
     </div>
   </div>
   <div class="callout">
-    <b style="font-family:var(--mono);color:var(--bright)">The gap it closes.</b> SwarmDo-A1 and A2 are genuinely open — Apache-2.0 weights, no API lock-in. But “fits on one 80GB GPU” still assumes you have an 80GB GPU. A2 additionally has to be served <em>merged</em> under vLLM, with specific parser and eager-mode flags, because its adapter reaches the base’s gated-DeltaNet layers. That is a real operational cliff, and it is the cliff this service exists to remove.
+    <b style="font-family:var(--mono);color:var(--bright)">The gap it closes.</b> Plenty of good work is gated on hardware nobody wants to buy. Our own models make the point: A1 and A2 are genuinely open — Apache-2.0 weights, no API lock-in — but “fits on one 80GB GPU” still assumes you have an 80GB GPU, and A2 has to be served <em>merged</em> under vLLM with specific parser and eager-mode flags. Every serious GPU workload has a cliff like that. Removing them is the job, regardless of whose code is running.
   </div>
 </div></section>
 
 <section id="why"><div class="wrap">
   <p class="sec-label">What it’s being built for</p>
   <h2>The workloads the ecosystem already generates.</h2>
-  <p class="sub">These are the jobs SwarmDo itself needs compute for today — documented in the model cards and the plugin’s own runtime. They are the design targets, not a shipped feature list.</p>
+  <p class="sub">The shapes of work it’s designed around. Our own jobs are in here, but only as one example — none of these assume you’re running anything of ours. Design targets, not a shipped feature list.</p>
   <div class="cards">
     <div class="card">
-      <h3><span class="fk">◉</span>Serving A1 &amp; A2</h3>
-      <p>An OpenAI-compatible endpoint for the SwarmDo models, with A2’s merged-weights and tool-parser requirements handled for you rather than rediscovered from a README.</p>
+      <h3><span class="fk">▲</span>Training &amp; fine-tuning</h3>
+      <p>Jobs that need a big card for hours or days, and that you’d rather not buy hardware for. Your framework, your data, your checkpoints.</p>
     </div>
     <div class="card">
-      <h3><span class="fk">✓</span>Execution-verified selection</h3>
-      <p>The models earn their gains by <em>running</em> candidate patches against a project’s own tests. That sampling-and-testing loop is inherently parallel, and inherently hungry for compute.</p>
+      <h3><span class="fk">◉</span>Inference &amp; serving</h3>
+      <p>Standing an endpoint up and keeping it up — whatever the model is, and whoever trained it. Open weights, your own, or something off the shelf.</p>
     </div>
     <div class="card">
-      <h3><span class="fk">🖼</span>Render-verified visual coding</h3>
-      <p>A2’s visual half is scored by rendering generated code and comparing it to the target image — another verify loop that wants throughput more than it wants a single fast card.</p>
+      <h3><span class="fk">⇉</span>Batch &amp; parallel work</h3>
+      <p>Embarrassingly parallel jobs that want throughput more than one fast card: sweeps, evals, offline processing, render and verify loops.</p>
     </div>
     <div class="card">
-      <h3><span class="fk">⛁</span>Embeddings &amp; vector memory</h3>
-      <p>The plugin’s persistent memory runs ONNX embeddings and HNSW indexing locally today. Larger swarms and shared team memory push that off the laptop.</p>
+      <h3><span class="fk">⛁</span>Anything else GPU-bound</h3>
+      <p>It doesn’t have to be an LLM, or AI at all. If it needs a GPU and you don’t want to own one, that’s the use case. Tell us what yours is.</p>
     </div>
+  </div>
+  <div class="callout">
+    <b style="font-family:var(--mono);color:var(--bright)">Our own workloads, as a worked example.</b> SwarmDo-A1 and A2 are served from it, and their execution-verified patch selection and render-verified visual scoring are exactly the bursty, parallel, verify-heavy jobs described above. That’s why they shaped the design — not because the service is limited to them.
   </div>
 </div></section>
 
@@ -170,17 +170,17 @@
     <li><b>No hardware is promised.</b> Specific GPU types, regions, and availability will be stated when they’re real.</li>
   </ul>
   <div class="callout">
-    In the meantime, both other layers work today and are fully open: <a href="/">the plugin</a> is <code>npx swarmdo init</code>, and <a href="/models.html">the models</a> are downloadable weights you can serve on your own hardware with no account at all.
+    In the meantime our other two projects work today and are fully open: <a href="/">the plugin</a> is <code>npx swarmdo init</code>, and <a href="/models.html">the models</a> are downloadable weights you can serve on your own hardware with no account at all.
   </div>
 </div></section>
 
 <section id="early"><div class="wrap">
   <p class="sec-label">Early access</p>
   <h2>Tell us what you’d run on it.</h2>
-  <p class="sub">The build is shaped by real workloads. If you want to serve A1 or A2 without buying a card, run execution-verified selection at scale, or push swarm memory off your laptop — say so, and you’ll be in the first group we talk to.</p>
+  <p class="sub">The build is shaped by real workloads, so the most useful thing you can send is yours — whatever it is. Training a model, serving one, running a sweep, or something that isn’t AI at all and just needs a GPU. It does not need to involve SwarmDo in any way.</p>
   <div class="cta-row">
-    <a class="btn p" href="mailto:maintainers@swarmdo.com?subject=SwarmDoGPU%20early%20access&amp;body=What%20I%27d%20like%20to%20run%3A%0A%0AModel%20(A1%20%2F%20A2%20%2F%20other)%3A%0A%0ARough%20scale%3A%0A">Email for early access</a>
-    <a class="btn s" href="/models.html">See the models it serves</a>
+    <a class="btn p" href="mailto:maintainers@swarmdo.com?subject=SwarmDoGPU%20early%20access&amp;body=What%20I%27d%20like%20to%20run%3A%0A%0AFramework%20%2F%20stack%3A%0A%0ARough%20scale%20(GPUs%2C%20hours)%3A%0A">Email for early access</a>
+    <a class="btn s" href="/models.html">Our models, as one example</a>
     <a class="btn s" href="/">Back to the plugin</a>
   </div>
   <p style="font-family:var(--mono);font-size:12.5px;color:var(--mute);margin-top:18px">maintainers@swarmdo.com · no list, no drip campaign — a human replies.</p>
