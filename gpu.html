@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SwarmDoGPU — managed GPU compute, for any workload</title>
-<meta name="description" content="SwarmDoGPU: managed GPU compute for any workload — training, fine-tuning, inference, batch. Bring your own code. In development — early access by request.">
+<title>SwarmDoGPU — rent GPUs by the second</title>
+<meta name="description" content="A spot GPU marketplace: H100s down to RTX 3090s aggregated into one catalog and one bill. Per-second billing, one-click SSH and Jupyter, a hard spend cap on every instance. No commitments, no idle burn.">
 <link rel="canonical" href="https://swarmdo.com/gpu.html">
-<meta property="og:title" content="SwarmDoGPU — managed GPU compute, for any workload">
-<meta property="og:description" content="Managed GPU compute for whatever you need to run. Not tied to SwarmDo — our own models are just one tenant. In development.">
+<meta property="og:title" content="SwarmDoGPU — rent GPUs by the second">
+<meta property="og:description" content="Spot GPU marketplace. One catalog, one bill, per-second billing, hard spend caps. Provider-agnostic — bring any workload.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://swarmdo.com/gpu.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%2296%22 fill=%22%230f1317%22/><g fill=%22%23e2a33c%22><circle cx=%22352%22 cy=%22176%22 r=%2234%22/><circle cx=%22284%22 cy=%22232%22 r=%2226%22/><circle cx=%22330%22 cy=%22286%22 r=%2224%22/><circle cx=%22216%22 cy=%22280%22 r=%2220%22/><circle cx=%22272%22 cy=%22336%22 r=%2219%22/><circle cx=%22156%22 cy=%22322%22 r=%2215%22/><circle cx=%22214%22 cy=%22382%22 r=%2214%22/><circle cx=%22106%22 cy=%22358%22 r=%2211%22/><circle cx=%22162%22 cy=%22420%22 r=%2210%22/></g></svg>">
@@ -40,7 +40,7 @@
   header.hero{border-bottom:1px solid var(--line);padding:76px 0 56px}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--honey);margin:0 0 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   h1{font-size:clamp(34px,6vw,58px);line-height:1.04;margin:0 0 20px}
-  .lede{font-size:clamp(17px,2.3vw,20px);color:var(--fog);max-width:46ch;margin:0 0 28px}
+  .lede{font-size:clamp(17px,2.3vw,20px);color:var(--fog);max-width:50ch;margin:0 0 28px}
   .cta-row{display:flex;gap:12px;flex-wrap:wrap}
   .btn{font-family:var(--mono);font-size:14px;padding:11px 17px;border-radius:8px;display:inline-flex;gap:8px;align-items:center;transition:.15s}
   .btn.p{background:var(--honey);color:#1a1206;font-weight:600}.btn.p:hover{text-decoration:none;filter:brightness(1.06)}
@@ -53,10 +53,16 @@
 
   /* status chip */
   .chip{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
-        padding:4px 10px;border-radius:999px;border:1px solid var(--honey-dim);color:var(--honey);background:rgba(226,163,60,.09)}
-  .chip .d{width:6px;height:6px;border-radius:50%;background:var(--honey);flex:none}
+        padding:4px 10px;border-radius:999px;border:1px solid rgba(131,185,138,.5);color:var(--a-green);background:rgba(131,185,138,.09)}
+  .chip .d{width:6px;height:6px;border-radius:50%;background:var(--a-green);flex:none}
 
-  /* positioning cards */
+  /* headline numbers */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:34px 0 0}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--panel);padding:20px 20px 18px}
+  .stat .v{font-family:var(--mono);font-size:23px;font-weight:600;color:var(--honey);line-height:1.1;letter-spacing:-.02em}
+  .stat .k{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-top:8px}
+
   .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
   @media(max-width:800px){.stack{grid-template-columns:1fr}}
   .layer{background:var(--panel);padding:24px 22px;position:relative}
@@ -64,7 +70,6 @@
   .layer .lk{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}
   .layer h3{font-size:17px;margin:0 0 8px}
   .layer p{font-size:14.5px;margin:0;color:var(--fog)}
-  .layer .badge{position:absolute;top:18px;right:20px;font-family:var(--mono);font-size:10.5px;color:var(--honey)}
 
   .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
   @media(max-width:800px){.cards{grid-template-columns:1fr}}
@@ -73,8 +78,17 @@
   .card .fk{color:var(--honey);font-size:14px}
   .card p{font-size:14.5px;margin:0;color:var(--fog)}
 
-  pre{font-family:var(--mono);font-size:12.5px;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;line-height:1.7;color:var(--bright)}
-  pre .c{color:var(--mute)} pre .g{color:var(--honey)}
+  /* hardware rows */
+  .hw{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .hw-row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,2fr) minmax(0,.9fr);gap:14px;padding:14px 20px;background:var(--panel);align-items:baseline}
+  .hw-row+.hw-row{border-top:1px solid var(--line)}
+  .hw-row.h{background:var(--ink-2)}
+  .hw-row .n{font-family:var(--mono);font-size:14px;color:var(--bright);font-weight:600}
+  .hw-row .d{font-size:14px;color:var(--fog)}
+  .hw-row .t{font-family:var(--mono);font-size:12px;color:var(--mute);text-align:right}
+  .hw-row.h .n,.hw-row.h .d,.hw-row.h .t{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:400}
+  @media(max-width:700px){.hw-row{grid-template-columns:1fr;gap:4px}.hw-row .t{text-align:left}.hw-row.h{display:none}}
+
   .callout{border:1px solid var(--line);border-left:3px solid var(--honey);border-radius:8px;background:rgba(226,163,60,.07);padding:15px 18px;margin:16px 0 0;font-size:15px}
   .honest li{margin:0 0 12px} .honest b{font-family:var(--mono);color:var(--bright)}
   footer{padding:40px 0 60px;color:var(--mute);font-family:var(--mono);font-size:13px}
@@ -91,105 +105,120 @@
     <a class="opt" href="/">plugin</a>
     <a class="opt" href="/models.html">models</a>
     <a class="on" href="/gpu.html">gpu</a>
-    <a href="#early">early access</a>
+    <a href="https://swarmdogpu-production.up.railway.app">open the app →</a>
   </div>
 </div></nav>
 
 <header class="hero"><div class="wrap">
-  <p class="eyebrow"><span class="chip"><span class="d"></span> In development</span> <span>· 🇦🇺 Built in Australia</span></p>
-  <h1>SwarmDo<span class="accent">GPU</span><br>bring your own workload.</h1>
-  <p class="lede"><b style="color:var(--bright)">Managed GPU compute and infrastructure</b> — for whatever you need to run. Train it, fine-tune it, serve it, batch it. It doesn’t have to be ours, and it doesn’t have to be an LLM.</p>
+  <p class="eyebrow"><span class="chip"><span class="d"></span> Live</span> <span>· 🇦🇺 Built in Australia</span></p>
+  <h1>Rent GPUs <span class="accent">by the second</span>.<br>One catalog. One bill.</h1>
+  <p class="lede">A spot GPU marketplace: <b style="color:var(--bright)">H100s down to RTX 3090s</b>, aggregated from a provider-agnostic pool into a single reliability-scored catalog. One click to a box with SSH and Jupyter ready, and a hard spend cap on every instance.</p>
   <div class="cta-row">
-    <a class="btn p" href="#early">Request early access</a>
-    <a class="btn s" href="#fit">What it is</a>
-    <a class="btn s" href="#status">Honest status</a>
+    <a class="btn p" href="https://swarmdogpu-production.up.railway.app">Browse the live catalog →</a>
+    <a class="btn s" href="#how">How it works</a>
+    <a class="btn s" href="#fineprint">The fine print</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="v">/second</div><div class="k">billing</div></div>
+    <div class="stat"><div class="v">9</div><div class="k">regions</div></div>
+    <div class="stat"><div class="v">H100 → 3090</div><div class="k">catalog range</div></div>
+    <div class="stat"><div class="v">$0</div><div class="k">commitment</div></div>
   </div>
 </div></header>
 
-<section id="fit"><div class="wrap">
-  <p class="sec-label">What it is</p>
-  <h2>A general-purpose GPU service. We’re just tenant zero.</h2>
-  <p class="sub">SwarmDoGPU is not a SwarmDo accessory. It’s managed GPU compute for anyone’s workload — yours included, whatever it happens to be. We build it, and we also happen to be a demanding customer of it, which is the useful part.</p>
+<section id="how"><div class="wrap">
+  <p class="sec-label">How it works</p>
+  <h2>Aggregated supply, scored for reliability, billed by the second.</h2>
+  <p class="sub">Instances are provider-agnostic — the catalog pools capacity from multiple sources and presents it as one list with one bill, so you pick on price and reliability rather than on who happens to own the rack.</p>
   <div class="stack">
     <div class="layer here">
-      <p class="lk">Bring your own</p>
-      <h3>Any workload</h3>
-      <p>Your code, your framework, your model — or no model at all. Training, fine-tuning, inference, batch and offline jobs. Nothing about it is SwarmDo-specific.</p>
+      <p class="lk">01 · pick</p>
+      <h3>One catalog</h3>
+      <p>Filter by GPU model, or by on-demand only, and sort by price. Every offer shows VRAM, vCPU, RAM, SSD and a measured uptime score before you commit to anything.</p>
     </div>
     <div class="layer">
-      <p class="lk">Or ours</p>
-      <h3>SwarmDo-A1 / A2</h3>
-      <p>Our own open models are one workload among many — a first-party tenant, not the boundary of what the service runs.</p>
+      <p class="lk">02 · launch</p>
+      <h3>One click</h3>
+      <p>Instances come up provisioned with SSH and Jupyter ready. No image plumbing, no per-provider console to learn.</p>
     </div>
     <div class="layer">
-      <p class="lk">Why that matters</p>
-      <h3>Dogfooded</h3>
-      <p>Running our own training and serving on it means the awkward parts get found by us first, rather than by you.</p>
+      <p class="lk">03 · pay</p>
+      <h3>One bill</h3>
+      <p>Per-second billing across every provider in the pool, with a hard spend cap set on each instance. No commitments and no idle burn.</p>
     </div>
   </div>
   <div class="callout">
-    <b style="font-family:var(--mono);color:var(--bright)">The gap it closes.</b> Plenty of good work is gated on hardware nobody wants to buy. Our own models make the point: A1 and A2 are genuinely open — Apache-2.0 weights, no API lock-in — but “fits on one 80GB GPU” still assumes you have an 80GB GPU, and A2 has to be served <em>merged</em> under vLLM with specific parser and eager-mode flags. Every serious GPU workload has a cliff like that. Removing them is the job, regardless of whose code is running.
+    <b style="font-family:var(--mono);color:var(--bright)">Interruptible or on-demand.</b> Cheaper interruptible capacity sits alongside on-demand in the same catalog, labelled per offer. Take the discount when your job can be restarted; take on-demand when it can’t.
   </div>
 </div></section>
 
-<section id="why"><div class="wrap">
-  <p class="sec-label">What it’s being built for</p>
-  <h2>The workloads the ecosystem already generates.</h2>
-  <p class="sub">The shapes of work it’s designed around. Our own jobs are in here, but only as one example — none of these assume you’re running anything of ours. Design targets, not a shipped feature list.</p>
+<section id="hardware"><div class="wrap">
+  <p class="sec-label">What’s in the pool</p>
+  <h2>Datacentre cards and workstation cards, side by side.</h2>
+  <p class="sub">Single cards through to multi-GPU nodes, across nine regions in North America, Europe and Asia. Availability and price move with the spot market — the catalog is the source of truth.</p>
+  <div class="hw">
+    <div class="hw-row h"><span class="n">Class</span><span class="d">Typical use</span><span class="t">Sizing</span></div>
+    <div class="hw-row"><span class="n">H100</span><span class="d">SXM and 80GB HBM3 — large-model training and high-throughput serving</span><span class="t">up to ×8 nodes</span></div>
+    <div class="hw-row"><span class="n">A100 80GB</span><span class="d">PCIe and SXM4 — training, fine-tuning, and serving models that want the full 80GB</span><span class="t">×1 to ×4</span></div>
+    <div class="hw-row"><span class="n">L40S</span><span class="d">Inference, rendering, and mixed graphics-plus-compute work</span><span class="t">×1 to ×2</span></div>
+    <div class="hw-row"><span class="n">RTX 4090</span><span class="d">Cost-efficient fine-tuning, batch jobs and sweeps</span><span class="t">×1 to ×2</span></div>
+    <div class="hw-row"><span class="n">RTX 3090</span><span class="d">The cheap end — experiments, dev boxes, long-running background work</span><span class="t">×1</span></div>
+  </div>
+  <div class="callout">
+    Not sure which? The catalog sorts by price and shows an uptime score per offer, so the cheapest box that clears your reliability bar is usually one sort away. <a href="https://swarmdogpu-production.up.railway.app">See what’s live now →</a>
+  </div>
+</div></section>
+
+<section id="anything"><div class="wrap">
+  <p class="sec-label">Bring your own workload</p>
+  <h2>It doesn’t have to be ours, and it doesn’t have to be an LLM.</h2>
+  <p class="sub">SwarmDoGPU is a general-purpose GPU service, not a SwarmDo accessory. Your code, your framework, your data. We happen to be a demanding customer of it ourselves, which is the useful part — the awkward edges get found by us first.</p>
   <div class="cards">
     <div class="card">
       <h3><span class="fk">▲</span>Training &amp; fine-tuning</h3>
-      <p>Jobs that need a big card for hours or days, and that you’d rather not buy hardware for. Your framework, your data, your checkpoints.</p>
+      <p>Jobs that want a big card for hours or days. Take interruptible capacity and checkpoint, or on-demand if a restart would hurt.</p>
     </div>
     <div class="card">
       <h3><span class="fk">◉</span>Inference &amp; serving</h3>
-      <p>Standing an endpoint up and keeping it up — whatever the model is, and whoever trained it. Open weights, your own, or something off the shelf.</p>
+      <p>Stand an endpoint up on the card that fits it — whatever the model is and whoever trained it. Open weights, your own, or off the shelf.</p>
     </div>
     <div class="card">
       <h3><span class="fk">⇉</span>Batch &amp; parallel work</h3>
-      <p>Embarrassingly parallel jobs that want throughput more than one fast card: sweeps, evals, offline processing, render and verify loops.</p>
+      <p>Sweeps, evals, offline processing, render-and-verify loops — the jobs that want throughput more than one very fast card.</p>
     </div>
     <div class="card">
       <h3><span class="fk">⛁</span>Anything else GPU-bound</h3>
-      <p>It doesn’t have to be an LLM, or AI at all. If it needs a GPU and you don’t want to own one, that’s the use case. Tell us what yours is.</p>
+      <p>It needn’t be AI at all. If it needs a GPU and you’d rather not own one, that’s the use case.</p>
     </div>
   </div>
   <div class="callout">
-    <b style="font-family:var(--mono);color:var(--bright)">Our own workloads, as a worked example.</b> SwarmDo-A1 and A2 are served from it, and their execution-verified patch selection and render-verified visual scoring are exactly the bursty, parallel, verify-heavy jobs described above. That’s why they shaped the design — not because the service is limited to them.
+    <b style="font-family:var(--mono);color:var(--bright)">Our own models, as a worked example.</b> <a href="/models.html">SwarmDo-A1 and A2</a> are open-weight coding models that fit a single 80GB card, and their execution-verified patch selection is exactly the bursty, parallel, restartable job this pool is good at. They’re one tenant among many — not the boundary of what it runs.
   </div>
 </div></section>
 
-<section id="status"><div class="wrap">
-  <p class="sec-label">Honest status</p>
-  <h2>What we don’t claim yet.</h2>
-  <p class="sub">SwarmDo publishes null results and unfinished work rather than burying them. The same rule applies to this page.</p>
+<section id="fineprint"><div class="wrap">
+  <p class="sec-label">The fine print</p>
+  <h2>What to know before you rent.</h2>
+  <p class="sub">SwarmDo would rather say the awkward part up front than have you find it at 2am.</p>
   <ul class="honest" style="max-width:70ch;padding-left:20px">
-    <li><b>No product is live.</b> The SwarmDoGPU repository currently holds project scaffolding and integration config. Application code, usage instructions, and deployment docs are still to come.</li>
-    <li><b>No pricing is announced.</b> There are no published tiers, rates, or limits — anything you read elsewhere claiming otherwise isn’t from us.</li>
-    <li><b>No benchmarks are claimed.</b> We haven’t measured this service, so we won’t quote numbers for it. The numbers on this site belong to the <a href="/models.html">models</a>, and every one of them is <a href="https://github.com/SwarmDo/models">reproducible</a>.</li>
-    <li><b>No hardware is promised.</b> Specific GPU types, regions, and availability will be stated when they’re real.</li>
+    <li><b>Interruptible means interruptible.</b> Discounted capacity can be reclaimed. Checkpoint your work, or pick an on-demand offer — both sit in the same catalog, labelled per offer.</li>
+    <li><b>Spot prices move.</b> Rates and availability shift with the market and with the region. Any number you see quoted elsewhere — including on this page — is a snapshot; the live catalog is the source of truth.</li>
+    <li><b>Uptime scores are measured, not promised.</b> The percentage on each offer describes how that capacity has behaved. It’s a signal to sort on, not an SLA.</li>
+    <li><b>You’ll need an account to rent.</b> Browsing the catalog and prices is open; provisioning an instance requires signing in.</li>
   </ul>
-  <div class="callout">
-    In the meantime our other two projects work today and are fully open: <a href="/">the plugin</a> is <code>npx swarmdo init</code>, and <a href="/models.html">the models</a> are downloadable weights you can serve on your own hardware with no account at all.
+  <div class="cta-row" style="margin-top:28px">
+    <a class="btn p" href="https://swarmdogpu-production.up.railway.app">Open SwarmDoGPU →</a>
+    <a class="btn s" href="/models.html">Our models</a>
+    <a class="btn s" href="/">The plugin</a>
   </div>
-</div></section>
-
-<section id="early"><div class="wrap">
-  <p class="sec-label">Early access</p>
-  <h2>Tell us what you’d run on it.</h2>
-  <p class="sub">The build is shaped by real workloads, so the most useful thing you can send is yours — whatever it is. Training a model, serving one, running a sweep, or something that isn’t AI at all and just needs a GPU. It does not need to involve SwarmDo in any way.</p>
-  <div class="cta-row">
-    <a class="btn p" href="mailto:maintainers@swarmdo.com?subject=SwarmDoGPU%20early%20access&amp;body=What%20I%27d%20like%20to%20run%3A%0A%0AFramework%20%2F%20stack%3A%0A%0ARough%20scale%20(GPUs%2C%20hours)%3A%0A">Email for early access</a>
-    <a class="btn s" href="/models.html">Our models, as one example</a>
-    <a class="btn s" href="/">Back to the plugin</a>
-  </div>
-  <p style="font-family:var(--mono);font-size:12.5px;color:var(--mute);margin-top:18px">maintainers@swarmdo.com · no list, no drip campaign — a human replies.</p>
+  <p style="font-family:var(--mono);font-size:12.5px;color:var(--mute);margin-top:18px">Questions, or a workload that doesn’t fit the catalog? <a href="mailto:maintainers@swarmdo.com?subject=SwarmDoGPU">maintainers@swarmdo.com</a> — a human replies.</p>
 </div></section>
 
 <footer><div class="wrap">
   <div class="foot-i">
     <span><a href="/"><b style="color:var(--honey);font-weight:600">swarm</b>do</a> / gpu</span>
     <span>
+      <a href="https://swarmdogpu-production.up.railway.app">app</a> ·
       <a href="/">plugin</a> ·
       <a href="/models.html">models</a> ·
       <a href="/a1.html">a1</a> ·
