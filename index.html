@@ -227,6 +227,29 @@
   .toast.show{transform:translate(-50%,0)}
   @media (prefers-reduced-motion: reduce){ .toast{transition:none} }
 
+  /* ── profile chooser ── */
+  .prof{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:18px;align-items:start}
+  @media(max-width:860px){.prof{grid-template-columns:1fr}}
+  .prof-list{display:flex;flex-direction:column;gap:8px}
+  .prof-pick{display:flex;align-items:center;gap:12px;text-align:left;width:100%;font-family:var(--mono);font-size:13.5px;
+             background:var(--ink-2);border:1px solid var(--line);color:var(--fog);border-radius:9px;padding:13px 15px;cursor:pointer;transition:all .14s}
+  .prof-pick:hover{border-color:var(--honey-dim);color:var(--bright)}
+  .prof-pick.on{border-color:var(--honey);background:var(--panel-2);color:var(--bright)}
+  .prof-pick .ico{font-size:17px;line-height:1;flex:none}
+  .prof-pick .nm{font-weight:600}
+  .prof-pick .rec{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--honey);margin-left:auto;white-space:nowrap}
+  .prof-panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px}
+  .prof-panel h3{font-family:var(--mono);font-size:15px;color:var(--bright);margin:0 0 8px}
+  .prof-blurb{font-size:14.5px;margin:0 0 16px;color:var(--fog)}
+  .prof-rows{list-style:none;margin:0 0 16px;padding:0;border-top:1px solid var(--line)}
+  .prof-rows li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12.5px}
+  .prof-rows .k{color:var(--mute);flex:none}
+  .prof-rows .v{color:var(--bright);text-align:right}
+  .prof-rows .v.off{color:var(--mute)}
+  .prof-when{font-size:14px;color:var(--fog);margin:0 0 16px}
+  .prof-when b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:5px;font-weight:400}
+  .prof-foot{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
   /* ── project switcher (nav) ── */
   .nav-proj{display:flex;gap:2px;font-family:var(--mono);font-size:12.5px;background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:3px}
   .nav-proj a{color:var(--fog);padding:4px 9px;border-radius:6px;white-space:nowrap}
@@ -278,6 +301,7 @@
     </nav>
     <div class="nav-links">
       <a href="#statusline">statusline</a>
+      <a href="#profiles">profiles</a>
       <a href="#features">features</a>
       <a href="#toolkit">toolkit</a>
       <a href="#engines">engines</a>
@@ -384,7 +408,7 @@
       <div class="feat"><h3><span class="fk">🪨</span>Caveman compression</h3><p>Why use many token when few token do trick. <code style="font-family:var(--mono);font-size:12.5px;color:var(--bright)">/sdo-caveman-compress</code> rewrites memory files into few-token caveman-speak — substance, code, and URLs preserved, backup kept. Vendored from the 82k-star original (MIT).</p></div>
       <div class="feat"><h3><span class="fk">💤</span>Ponytail mode</h3><p>The laziest senior dev in the room, on demand. <code style="font-family:var(--mono);font-size:12.5px;color:var(--bright)">/sdo-ponytail</code> forces the simplest solution that works: YAGNI, stdlib before dependencies, one line before fifty. Three intensities + audit and review lenses (MIT).</p></div>
       <div class="feat"><h3><span class="fk">▊</span>A statusline you control</h3><p>Twelve segments, three presets, one checklist. Run <code style="font-family:var(--mono);font-size:12.5px;color:var(--bright)">/sDo:statusline</code> inside Claude Code and tick exactly what you want to see.</p></div>
-      <div class="feat"><h3><span class="fk">🎚️</span>Session profiles</h3><p>One word for how much swarmdo you want: <code style="font-family:var(--mono);font-size:12.5px;color:var(--bright)">swarmdo profile use ultra</code> 🦾 (everything on), <b>smart</b> 🧠 (recommended), light 🪶, or minimal 🔩. Sets the real session levers, the local LLM, and the efficiency skills at once — and writes a <code style="font-family:var(--mono);font-size:12.5px;color:var(--bright)">.swarmdo/profile.env</code> so Codex/Copilot/pi share the mode. A brand-new session with none set is prompted to pick one.</p></div>
+      <div class="feat"><h3><span class="fk">🎚️</span>Session profiles</h3><p>One word for how much swarmdo you want: <b>ultra</b> 🦾, <b>smart</b> 🧠 (recommended), <b>light</b> 🪶, or <b>minimal</b> 🔩. One dial moves the session levers, the local model, the efficiency skills, and the base preset together — and writes a <code style="font-family:var(--mono);font-size:12.5px;color:var(--bright)">.swarmdo/profile.env</code> so Codex/Copilot/pi share the mode. A brand-new session with none set is prompted to pick one. <a href="#profiles">Try the chooser →</a></p></div>
       <div class="feat"><h3><span class="fk">🗂</span>One namespace</h3><p>Every swarmdo slash command groups under <code style="font-family:var(--mono);font-size:12.5px;color:var(--bright)">/sDo:</code> (skills <code style="font-family:var(--mono);font-size:12.5px;color:var(--bright)">/sdo-</code>). Type /sDo in Claude Code and the whole toolkit surfaces together — legacy unprefixed copies auto-migrate on init.</p></div>
     </div>
     <div class="sl-embed" id="statusline">
@@ -410,6 +434,30 @@
         <p class="config-foot">Live: <code id="seg-cmd">swarmdo statusline --preset full</code></p>
       </div>
     </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="profiles">
+  <div class="wrap">
+    <p class="sec-label">One word of setup</p>
+    <h2>Pick how much swarmdo you want.</h2>
+    <p class="sec-lede">Profiles are a single dial over the whole toolkit — session levers, the local model, the efficiency skills, and the base preset all move together. A brand-new session with none set asks you to pick one. Try the ladder here:</p>
+    <div class="prof">
+      <div class="prof-list" id="prof-list" role="group" aria-label="Session profiles"></div>
+      <div class="prof-panel">
+        <h3 id="prof-title"></h3>
+        <p class="prof-blurb" id="prof-blurb"></p>
+        <ul class="prof-rows" id="prof-rows"></ul>
+        <p class="prof-when"><b>When to use</b><span id="prof-when"></span></p>
+        <div class="prof-foot">
+          <button class="cmd" id="prof-cmd" type="button" data-copy="swarmdo profile use smart">
+            <span class="ps">$</span> <span id="prof-cmd-text">swarmdo profile use smart</span> <span class="copy">⧉ copy</span>
+          </button>
+          <span style="font-family:var(--mono);font-size:12px;color:var(--mute)">or <code style="font-family:var(--mono);font-size:12px;color:var(--honey)">swarmdo profile list</code></span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1014,6 +1062,69 @@
   sync();
 
   /* ── copy buttons ── */
+  /* ── profile chooser (mirrors `swarmdo profile list`) ── */
+  var PROFILES=[
+    {k:"ultra",ico:"🦾",label:"ultra",rec:false,
+     title:"UltraMode",
+     blurb:"Every super tool: ULTRA thoroughness, the agent harness, learned neural routing, local SwarmLLM inference, and the full efficiency skill set.",
+     when:"Hard problems where correctness and completeness beat speed — deep refactors, audits, thorny debugging. Highest token and compute cost.",
+     levers:"ULTRA=1 HARNESS=1 ROUTER_NEURAL=1", llm:true, skills:true,
+     base:"max", baseNote:"widest swarm, Claude⇄Codex dual-mode, highest agent ceiling"},
+    {k:"smart",ico:"🧠",label:"smart",rec:true,
+     title:"Smart",
+     blurb:"Only the smart tools: the coding-agent harness plus learned neural routing, with the efficiency skills available. No ULTRA over-thoroughness, no local model download.",
+     when:"The balanced daily driver — most projects, most sessions. Smart routing and better agents without max cost.",
+     levers:"HARNESS=1 ROUTER_NEURAL=1", llm:false, skills:true,
+     base:"standard", baseNote:"HNSW + neural + ONNX embeddings substrate"},
+    {k:"light",ico:"🪶",label:"light",rec:false,
+     title:"Light",
+     blurb:"The cheap wins only: the agent harness plus the anti-over-engineering (ponytail) persona as the default for spawned agents, and the efficiency skills for token savings.",
+     when:"Quick work, tight token budgets, or when you want minimal-by-default solutions. Fast init, no model downloads.",
+     levers:"HARNESS=1 PONYTAIL=1", llm:false, skills:true,
+     base:"basic", baseNote:"real multi-agent coordination + lightweight memory"},
+    {k:"minimal",ico:"🔩",label:"minimal",rec:false,
+     title:"Minimal",
+     blurb:"Opts out of everything: no harness injection, no routing, no ULTRA, no local model, no efficiency skills. Claude Code left untouched.",
+     when:"Air-gapped or low-power machines, or when you want swarmdo purely for its CLI and memory.",
+     levers:"HARNESS=0", llm:false, skills:false,
+     base:"minimal", baseNote:"core coordination only, offline-friendly"}
+  ];
+  var pList=document.getElementById("prof-list");
+  if(pList){
+    var pTitle=document.getElementById("prof-title"),pBlurb=document.getElementById("prof-blurb"),
+        pRows=document.getElementById("prof-rows"),pWhen=document.getElementById("prof-when"),
+        pCmd=document.getElementById("prof-cmd"),pCmdT=document.getElementById("prof-cmd-text");
+    function row(k,v,off){
+      return '<li><span class="k">'+k+'</span><span class="v'+(off?" off":"")+'">'+v+'</span></li>';
+    }
+    function renderProfile(p){
+      pTitle.textContent=p.ico+"  "+p.title+"  ·  profile '"+p.label+"'"+(p.rec?"  ·  recommended":"");
+      pBlurb.textContent=p.blurb;
+      pRows.innerHTML=
+        row("session levers",p.levers,false)+
+        row("local SwarmLLM",p.llm?"on":"off",!p.llm)+
+        row("efficiency skills",p.skills?"on":"off",!p.skills)+
+        row("base preset",p.base,false);
+      pWhen.textContent=p.when+" Pairs with the "+p.base+" preset — "+p.baseNote+".";
+      var cmd="swarmdo profile use "+p.label;
+      pCmdT.textContent=cmd; pCmd.setAttribute("data-copy",cmd);
+      [].slice.call(pList.children).forEach(function(b){
+        var on=b.getAttribute("data-p")===p.k;
+        b.classList.toggle("on",on);
+        b.setAttribute("aria-pressed",on?"true":"false");
+      });
+    }
+    PROFILES.forEach(function(p){
+      var b=document.createElement("button");
+      b.type="button"; b.className="prof-pick"; b.setAttribute("data-p",p.k);
+      b.innerHTML='<span class="ico">'+p.ico+'</span><span class="nm">'+p.label+'</span>'+
+                  (p.rec?'<span class="rec">recommended</span>':'');
+      b.addEventListener("click",function(){ renderProfile(p); });
+      pList.appendChild(b);
+    });
+    renderProfile(PROFILES[1]);
+  }
+
   var toast=document.getElementById("toast"),tt;
   [].slice.call(document.querySelectorAll("[data-copy]")).forEach(function(el){
     el.addEventListener("click",function(){
