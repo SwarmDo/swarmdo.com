@@ -68,22 +68,35 @@
 
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
 
-  /* ── nav ─────────────────────────────── */
-  nav{position:sticky;top:0;z-index:20;background:rgba(15,19,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-i{display:flex;align-items:center;gap:18px;min-height:58px}
-  .brand{font-family:var(--mono);font-size:16px;color:var(--bright);font-weight:600;letter-spacing:.01em}
-  .brand b{color:var(--honey);font-weight:600}
+  /* ── site chrome · header (identical on plugin / models / gpu) ── */
+  nav.site{position:sticky;top:0;z-index:20;background:rgba(15,19,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-i{display:flex;flex-wrap:wrap;align-items:center;gap:14px;min-height:58px;padding-top:6px;padding-bottom:6px}
+  .brand{font-family:var(--mono);font-size:16px;color:var(--bright);font-weight:600;letter-spacing:.01em;white-space:nowrap}
+  .brand:hover{text-decoration:none;color:var(--bright)}
   .logo-mark{vertical-align:-5px;margin-right:6px;border-radius:5px}
-  .foot-i .logo-mark{width:18px;height:18px;vertical-align:-4px;margin-right:5px}
-  .nav-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:14px 13px;margin-left:auto;font-family:var(--mono);font-size:13px}
+  .ver{font-family:var(--mono);font-size:12px;color:var(--mute);border:1px solid var(--line);padding:2px 8px;border-radius:99px;white-space:nowrap;min-width:72px;text-align:center}
+  .ver.go{border-color:rgba(131,185,138,.45);color:var(--a-green)}
+  /* project switcher — the same three pills on every page */
+  .nav-proj{display:flex;gap:2px;font-family:var(--mono);font-size:12.5px;background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:3px}
+  .nav-proj a{color:var(--fog);padding:4px 9px;border-radius:6px;white-space:nowrap}
+  .nav-proj a:hover{color:var(--honey);text-decoration:none;background:var(--panel)}
+  .nav-proj a.on{background:var(--panel-2);color:var(--honey)}
+  /* right rail — a.sec links are *this page's* own sections */
+  .nav-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 11px;margin-left:auto;font-family:var(--mono);font-size:12.5px}
   .nav-links a{color:var(--fog);white-space:nowrap}
   .nav-links a:hover{color:var(--honey);text-decoration:none}
-  .ver{font-family:var(--mono);font-size:12px;color:var(--mute);border:1px solid var(--line);padding:2px 8px;border-radius:99px;white-space:nowrap}
+  .nav-links a.go{color:var(--honey)}
+  .coffee-nav{color:#FFDD00 !important}
+  @media (min-width:1180px){ .nav-links{flex-shrink:0} }
+  @media (max-width:1180px){ .nav-links a.sec{display:none} }
+  @media (max-width:620px){ .ver{display:none} .coffee-nav{display:none} .nav-i{gap:12px} .nav-i .wm{display:none} .nav-proj{font-size:12px} }
 
   /* ── hero ────────────────────────────── */
   .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
   #boids{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
-  .hero-i{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;padding:84px 0 72px;align-items:start}
+  /* padding-top/bottom, not the shorthand — .wrap owns the 28px side gutters
+     and a `padding:` shorthand here would silently wipe them out */
+  .hero-i{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;padding-top:84px;padding-bottom:72px;align-items:start}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--honey);margin:0 0 18px}
   h1{font-family:var(--mono);font-weight:600;color:var(--bright);font-size:clamp(30px,4vw,44px);line-height:1.14;letter-spacing:-.02em;margin:0 0 22px;text-wrap:balance}
   h1 .h-accent{color:var(--honey)}
@@ -212,15 +225,18 @@
   .eff-rules li{margin:4px 0}
   .eff-foot{font-size:13.5px;color:var(--mute)}
   .eff-credit{font-family:var(--mono);font-size:12.5px;color:var(--mute);margin-top:26px}
-  .coffee-nav{color:#FFDD00 !important}
-  .coffee-btn{display:inline-block;background:#FFDD00;color:#171004 !important;font-family:var(--mono);font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:7px;text-decoration:none !important;transition:transform .12s}
-  .coffee-btn:hover{transform:translateY(-1px)}
 
-  /* footer */
+  /* ── site chrome · footer (identical on plugin / models / gpu) ── */
   footer{padding:44px 0 60px;font-size:14px;color:var(--mute)}
   .foot-i{display:flex;gap:28px;flex-wrap:wrap;align-items:baseline}
   .foot-i .brand{font-size:14px}
+  .foot-i .logo-mark{width:18px;height:18px;vertical-align:-4px;margin-right:5px}
   .foot-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-left:auto;font-family:var(--mono);font-size:12.5px}
+  .foot-links a{color:var(--mute)}
+  .foot-links a:hover{color:var(--honey)}
+  .foot-links a.on{color:var(--fog)}
+  .coffee-btn{display:inline-block;background:#FFDD00;color:#171004 !important;font-family:var(--mono);font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:7px;text-decoration:none !important;transition:transform .12s}
+  .coffee-btn:hover{transform:translateY(-1px)}
   .license{margin-top:18px;max-width:62em;font-size:13px;line-height:1.7}
 
   .toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,80px);background:var(--honey);color:#171004;font-family:var(--mono);font-size:13px;font-weight:600;padding:9px 18px;border-radius:8px;transition:transform .25s;z-index:50}
@@ -250,12 +266,6 @@
   .prof-when b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:5px;font-weight:400}
   .prof-foot{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 
-  /* ── project switcher (nav) ── */
-  .nav-proj{display:flex;gap:2px;font-family:var(--mono);font-size:12.5px;background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:3px}
-  .nav-proj a{color:var(--fog);padding:4px 9px;border-radius:6px;white-space:nowrap}
-  .nav-proj a:hover{color:var(--honey);text-decoration:none;background:var(--panel)}
-  .nav-proj a.on{background:var(--panel-2);color:var(--honey)}
-
   /* ── the three pillars ── */
   .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
   .proj{background:var(--panel);padding:28px 26px 26px;display:flex;flex-direction:column;transition:background .15s}
@@ -272,27 +282,17 @@
   .proj .go-l a{color:var(--fog)}
   .proj .go-l a.main{color:var(--honey)}
 
-  /* at full width the wrap is capped at 1120px, so the bar fits on one line —
-     pin it there. Below this the links may still shrink/wrap (or hide at 920). */
-  @media (min-width:1180px){ .nav-links{flex-shrink:0} }
-
   @media (max-width:920px){
     /* minmax(0,1fr) — plain 1fr keeps min-width:auto, so the terminal's
        long unbreakable mono lines forced ~164px of page overflow on phones */
-    .hero-i{grid-template-columns:minmax(0,1fr);gap:40px;padding:56px 0}
-    .nav-links{display:none}
+    .hero-i{grid-template-columns:minmax(0,1fr);gap:40px;padding-top:56px;padding-bottom:56px}
     .proj-grid{grid-template-columns:1fr}
-  }
-  @media (max-width:560px){
-    .ver{display:none}
-    .nav-proj{font-size:12px}
-    .nav-proj a{padding:4px 9px}
   }
 </style>
 
-<nav>
+<nav class="site">
   <div class="wrap nav-i">
-    <span class="brand"><svg class="logo-mark" width="22" height="22" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#182029"/><g fill="#e2a33c"><circle cx="352" cy="176" r="34"/><circle cx="284" cy="232" r="26" opacity=".92"/><circle cx="330" cy="286" r="24" opacity=".88"/><circle cx="216" cy="280" r="20" opacity=".78"/><circle cx="272" cy="336" r="19" opacity=".74"/><circle cx="156" cy="322" r="15" opacity=".62"/><circle cx="214" cy="382" r="14" opacity=".58"/><circle cx="106" cy="358" r="11" opacity=".46"/><circle cx="162" cy="420" r="10" opacity=".42"/></g></svg> swarmdo</span>
+    <a class="brand" href="/"><svg class="logo-mark" width="22" height="22" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#182029"/><g fill="#e2a33c"><circle cx="352" cy="176" r="34"/><circle cx="284" cy="232" r="26" opacity=".92"/><circle cx="330" cy="286" r="24" opacity=".88"/><circle cx="216" cy="280" r="20" opacity=".78"/><circle cx="272" cy="336" r="19" opacity=".74"/><circle cx="156" cy="322" r="15" opacity=".62"/><circle cx="214" cy="382" r="14" opacity=".58"/><circle cx="106" cy="358" r="11" opacity=".46"/><circle cx="162" cy="420" r="10" opacity=".42"/></g></svg> <span class="wm">swarmdo</span></a>
     <span class="ver">v1.63.4</span>
     <nav class="nav-proj" aria-label="Projects">
       <a class="on" href="/" aria-current="page">plugin</a>
@@ -300,16 +300,16 @@
       <a href="/gpu.html">gpu</a>
     </nav>
     <div class="nav-links">
-      <a href="#statusline">statusline</a>
-      <a href="#profiles">profiles</a>
-      <a href="#features">features</a>
-      <a href="#toolkit">toolkit</a>
-      <a href="#engines">engines</a>
-      <a href="#install">install</a>
-      <a href="#commands">commands</a>
-      <a href="#faq">faq</a>
+      <a class="sec" href="#statusline">statusline</a>
+      <a class="sec" href="#profiles">profiles</a>
+      <a class="sec" href="#features">features</a>
+      <a class="sec" href="#toolkit">toolkit</a>
+      <a class="sec" href="#engines">engines</a>
+      <a class="sec" href="#install">install</a>
+      <a class="sec" href="#commands">commands</a>
+      <a class="sec" href="#faq">faq</a>
       <a href="https://github.com/SwarmDo/swarmdo">github</a>
-      <a href="https://buymeacoffee.com/swarmdo" class="coffee-nav">☕ support</a>
+      <a class="coffee-nav" href="https://buymeacoffee.com/swarmdo">☕ support</a>
     </div>
   </div>
 </nav>
@@ -925,19 +925,18 @@
 <footer>
   <div class="wrap">
     <div class="foot-i">
-      <span class="brand"><svg class="logo-mark" width="18" height="18" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#182029"/><g fill="#e2a33c"><circle cx="352" cy="176" r="34"/><circle cx="284" cy="232" r="26" opacity=".92"/><circle cx="330" cy="286" r="24" opacity=".88"/><circle cx="216" cy="280" r="20" opacity=".78"/><circle cx="272" cy="336" r="19" opacity=".74"/><circle cx="156" cy="322" r="15" opacity=".62"/><circle cx="214" cy="382" r="14" opacity=".58"/><circle cx="106" cy="358" r="11" opacity=".46"/><circle cx="162" cy="420" r="10" opacity=".42"/></g></svg> swarmdo</span>
+      <a class="brand" href="/"><svg class="logo-mark" width="18" height="18" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#182029"/><g fill="#e2a33c"><circle cx="352" cy="176" r="34"/><circle cx="284" cy="232" r="26" opacity=".92"/><circle cx="330" cy="286" r="24" opacity=".88"/><circle cx="216" cy="280" r="20" opacity=".78"/><circle cx="272" cy="336" r="19" opacity=".74"/><circle cx="156" cy="322" r="15" opacity=".62"/><circle cx="214" cy="382" r="14" opacity=".58"/><circle cx="106" cy="358" r="11" opacity=".46"/><circle cx="162" cy="420" r="10" opacity=".42"/></g></svg> swarmdo</a>
       <div class="foot-links">
+        <a class="on" href="/">plugin</a>
         <a href="/models.html">models</a>
         <a href="/a1.html">a1</a>
         <a href="/gpu.html">gpu</a>
-        <a href="https://github.com/SwarmDo/swarmdo">github</a>
-        <a href="https://github.com/SwarmDo/swarmdo/releases">releases</a>
-        <a href="https://github.com/SwarmDo/swarmdo/blob/main/LICENSE">license</a>
+        <a href="https://github.com/SwarmDo">github</a>
         <a href="/privacy.html">privacy</a>
         <a class="coffee-btn" href="https://buymeacoffee.com/swarmdo">☕ buy me a coffee</a>
       </div>
     </div>
-    <p class="license">MIT licensed. swarmdo is based on the original, hugely popular <b style="color:var(--fog)">ruflo</b> agent-orchestration project — renamed and made fully self-contained. The original copyright and full lineage are preserved in the repository&rsquo;s LICENSE and NOTICE files.</p>
+    <p class="license">MIT licensed — see the <a href="https://github.com/SwarmDo/swarmdo/blob/main/LICENSE">LICENSE</a> and the <a href="https://github.com/SwarmDo/swarmdo/releases">release notes</a>. swarmdo is based on the original, hugely popular <b style="color:var(--fog)">ruflo</b> agent-orchestration project — renamed and made fully self-contained. The original copyright and full lineage are preserved in the repository&rsquo;s LICENSE and NOTICE files.</p>
   </div>
 </footer>
 

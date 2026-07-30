@@ -24,18 +24,33 @@
   body{margin:0;background:var(--ink);color:var(--fog);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
   a{color:var(--honey);text-decoration:none}
   a:hover{text-decoration:underline;text-underline-offset:3px}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
   h1,h2,h3{font-family:var(--mono);font-weight:600;color:var(--bright);letter-spacing:-.02em;text-wrap:balance}
   .accent{color:var(--honey)}
   code{font-family:var(--mono);font-size:.9em;color:var(--bright)}
-  nav{position:sticky;top:0;z-index:20;background:rgba(15,19,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-i{display:flex;align-items:center;gap:24px;min-height:56px;padding:6px 0}
-  .brand{font-family:var(--mono);font-size:15px;color:var(--bright);font-weight:600}
-  .brand b{color:var(--honey)}
-  .nav-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 18px;margin-left:auto;font-family:var(--mono);font-size:13px}
-  .nav-links a{color:var(--fog)} .nav-links a:hover{color:var(--honey);text-decoration:none}
-  .nav-links a.on{color:var(--honey)}
-  @media(max-width:620px){.nav-links a.opt{display:none}}
+
+  /* ── site chrome · header (identical on plugin / models / gpu) ── */
+  nav.site{position:sticky;top:0;z-index:20;background:rgba(15,19,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-i{display:flex;flex-wrap:wrap;align-items:center;gap:14px;min-height:58px;padding-top:6px;padding-bottom:6px}
+  .brand{font-family:var(--mono);font-size:16px;color:var(--bright);font-weight:600;letter-spacing:.01em;white-space:nowrap}
+  .brand:hover{text-decoration:none;color:var(--bright)}
+  .logo-mark{vertical-align:-5px;margin-right:6px;border-radius:5px}
+  .ver{font-family:var(--mono);font-size:12px;color:var(--mute);border:1px solid var(--line);padding:2px 8px;border-radius:99px;white-space:nowrap;min-width:72px;text-align:center}
+  .ver.go{border-color:rgba(131,185,138,.45);color:var(--a-green)}
+  /* project switcher — the same three pills on every page */
+  .nav-proj{display:flex;gap:2px;font-family:var(--mono);font-size:12.5px;background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:3px}
+  .nav-proj a{color:var(--fog);padding:4px 9px;border-radius:6px;white-space:nowrap}
+  .nav-proj a:hover{color:var(--honey);text-decoration:none;background:var(--panel)}
+  .nav-proj a.on{background:var(--panel-2);color:var(--honey)}
+  /* right rail — a.sec links are *this page's* own sections */
+  .nav-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 11px;margin-left:auto;font-family:var(--mono);font-size:12.5px}
+  .nav-links a{color:var(--fog);white-space:nowrap}
+  .nav-links a:hover{color:var(--honey);text-decoration:none}
+  .nav-links a.go{color:var(--honey)}
+  .coffee-nav{color:#FFDD00 !important}
+  @media (min-width:1180px){ .nav-links{flex-shrink:0} }
+  @media (max-width:1180px){ .nav-links a.sec{display:none} }
+  @media (max-width:620px){ .ver{display:none} .coffee-nav{display:none} .nav-i{gap:12px} .nav-i .wm{display:none} .nav-proj{font-size:12px} }
 
   header.hero{border-bottom:1px solid var(--line);padding:76px 0 56px}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--honey);margin:0 0 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -78,21 +93,38 @@
   pre .c{color:var(--mute)} pre .g{color:var(--honey)}
   .callout{border:1px solid var(--line);border-left:3px solid var(--honey);border-radius:8px;background:rgba(226,163,60,.07);padding:15px 18px;margin:16px 0 0;font-size:15px}
   .honest li{margin:0 0 12px} .honest b{font-family:var(--mono);color:var(--bright)}
-  footer{padding:40px 0 60px;color:var(--mute);font-family:var(--mono);font-size:13px}
-  .foot-i{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .foot-i a{color:var(--mute)} .foot-i a:hover{color:var(--honey)}
+
+  /* ── site chrome · footer (identical on plugin / models / gpu) ── */
+  footer{padding:44px 0 60px;font-size:14px;color:var(--mute)}
+  .foot-i{display:flex;gap:28px;flex-wrap:wrap;align-items:baseline}
+  .foot-i .brand{font-size:14px}
+  .foot-i .logo-mark{width:18px;height:18px;vertical-align:-4px;margin-right:5px}
+  .foot-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-left:auto;font-family:var(--mono);font-size:12.5px}
+  .foot-links a{color:var(--mute)}
+  .foot-links a:hover{color:var(--honey)}
+  .foot-links a.on{color:var(--fog)}
+  .coffee-btn{display:inline-block;background:#FFDD00;color:#171004 !important;font-family:var(--mono);font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:7px;text-decoration:none !important;transition:transform .12s}
+  .coffee-btn:hover{transform:translateY(-1px)}
+  .license{margin-top:18px;max-width:62em;font-size:13px;line-height:1.7}
   :focus-visible{outline:2px solid var(--honey);outline-offset:3px;border-radius:3px}
 </style>
 </head>
 <body>
-<nav><div class="wrap nav-i">
-  <a class="brand" href="/"><b>swarm</b>do<span style="color:var(--mute)"> / models</span></a>
+<nav class="site"><div class="wrap nav-i">
+  <a class="brand" href="/"><svg class="logo-mark" width="22" height="22" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#182029"/><g fill="#e2a33c"><circle cx="352" cy="176" r="34"/><circle cx="284" cy="232" r="26" opacity=".92"/><circle cx="330" cy="286" r="24" opacity=".88"/><circle cx="216" cy="280" r="20" opacity=".78"/><circle cx="272" cy="336" r="19" opacity=".74"/><circle cx="156" cy="322" r="15" opacity=".62"/><circle cx="214" cy="382" r="14" opacity=".58"/><circle cx="106" cy="358" r="11" opacity=".46"/><circle cx="162" cy="420" r="10" opacity=".42"/></g></svg> <span class="wm">swarmdo</span></a>
+  <span class="ver">A1 · A2</span>
+  <nav class="nav-proj" aria-label="Projects">
+    <a href="/">plugin</a>
+    <a class="on" href="/models.html" aria-current="page">models</a>
+    <a href="/gpu.html">gpu</a>
+  </nav>
   <div class="nav-links">
-    <a href="/#projects">projects</a>
-    <a class="opt" href="/">plugin</a>
-    <a class="on" href="/models.html">models</a>
-    <a class="opt" href="/gpu.html">gpu</a>
+    <a class="sec" href="#lineup">lineup</a>
+    <a class="sec" href="#method">method</a>
+    <a class="sec" href="#run">run it</a>
+    <a class="sec" href="#honest">caveats</a>
     <a href="https://github.com/SwarmDo/models">github</a>
+    <a class="coffee-nav" href="https://buymeacoffee.com/swarmdo">☕ support</a>
   </div>
 </div></nav>
 
@@ -216,15 +248,18 @@ vllm serve <span class="g">SwarmDo/SwarmDo-A2-merged</span> --served-model-name 
 
 <footer><div class="wrap">
   <div class="foot-i">
-    <span><a href="/"><b style="color:var(--honey);font-weight:600">swarm</b>do</a> / models</span>
-    <span>
-      <a href="/">plugin</a> ·
-      <a href="/a1.html">a1</a> ·
-      <a href="/gpu.html">gpu</a> ·
-      <a href="/privacy.html">privacy</a> ·
-      <a href="https://github.com/SwarmDo/models">github</a>
-    </span>
+    <a class="brand" href="/"><svg class="logo-mark" width="18" height="18" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#182029"/><g fill="#e2a33c"><circle cx="352" cy="176" r="34"/><circle cx="284" cy="232" r="26" opacity=".92"/><circle cx="330" cy="286" r="24" opacity=".88"/><circle cx="216" cy="280" r="20" opacity=".78"/><circle cx="272" cy="336" r="19" opacity=".74"/><circle cx="156" cy="322" r="15" opacity=".62"/><circle cx="214" cy="382" r="14" opacity=".58"/><circle cx="106" cy="358" r="11" opacity=".46"/><circle cx="162" cy="420" r="10" opacity=".42"/></g></svg> swarmdo</a>
+    <div class="foot-links">
+      <a href="/">plugin</a>
+      <a class="on" href="/models.html">models</a>
+      <a href="/a1.html">a1</a>
+      <a href="/gpu.html">gpu</a>
+      <a href="https://github.com/SwarmDo">github</a>
+      <a href="/privacy.html">privacy</a>
+      <a class="coffee-btn" href="https://buymeacoffee.com/swarmdo">☕ buy me a coffee</a>
+    </div>
   </div>
+  <p class="license">Open weights on Hugging Face, Apache-2.0 base. Model cards, evaluation code and reproduce guides live in the <a href="https://github.com/SwarmDo/models">models repo</a>. Every number on this page is paired, held-out and significance-tested — and where the result was null, the null is published.</p>
 </div></footer>
 </body>
 </html>
